@@ -20,6 +20,7 @@
 import type { ComponentType } from 'react';
 
 // <custom:intent-imports>
+import { IconHandMove, IconArrowBackUp } from '@tabler/icons-react';
 // </custom:intent-imports>
 
 export interface IntentLink {
@@ -39,6 +40,8 @@ export interface IntentLink {
 
 export const INTENTS: IntentLink[] = [
   // <custom:intents>
+  { path: '/intents/werkzeug-ausleihen', label: { de: 'Werkzeug ausleihen', en: 'Borrow tool', cs: 'Půjčit nástroj' }, icon: IconHandMove, description: 'Handwerker und Werkzeug wählen, Ausleihe anlegen' },
+  { path: '/intents/werkzeug-rueckgabe', label: { de: 'Werkzeug zurückgeben', en: 'Return tool', cs: 'Vrátit nástroj' }, icon: IconArrowBackUp, description: 'Ausleihe abschließen und ggf. Wartung anlegen' },
   // </custom:intents>
 ];
 
@@ -49,4 +52,4 @@ export const INTENTS: IntentLink[] = [
  * purpose — a scaffold update resets it to false (self-healing if Phase 2
  * never ran).
  */
-export const INTENTS_PENDING = true;
+export const INTENTS_PENDING = false;
