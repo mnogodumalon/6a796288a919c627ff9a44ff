@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Name, Personalnummer, Email, Qualifikation, Status), keine Numerik oder Datumsabhängigkeiten, nichts berechenbar. Nur Status-Default gesetzt für häufiger Anfangswert 'Aktiv'."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand", "anschaffungsdatum"],
+      "computed_keys": [],
+      "reason": "Bestandsverwaltung (Name, Inventarnummer, Kategorie, Hersteller, Modell, Seriennummer, Standort, Zustand, Bemerkungen). Keine Numerik, kein applookup mit Preis, nur einzelnes Datum ohne Paar. Defaults: Zustand='Verfügbar', Anschaffungsdatum=heute (Erfassungssemantik)."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Ausleih-Transaktionen mit Datumspaar (Ausleihdatum + Geplantes Rückgabedatum). Virtueller Dauer-Key für Aggregat-Anzeige (Stunden zwischen Ausleihe und geplanter Rückgabe). Kein Preis-Feld; reine Verwaltungs-Berechnung der Ausleihfrist als Hilfswert."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "geplantes_enddatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Wartungs-/Reparatur-Tickets mit Datumspaar (Startdatum + Geplantes Enddatum). Virtueller Dauer-Key für Aggregat-Anzeige (Tage der geplanten Bearbeitungsdauer). Kosten-Feld existiert, ist aber Eingabefeld (keine Berechnung aus anderen Feldern ableitbar). Status-Default auf 'Geplant' für neuen Vorgänge."
+    }
+  }
+}
