@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 8,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten-Entity (Personaldaten + Qualifikation/Status). Keine Preise, keine Daten-Paare, keine Aggregationen möglich."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Inventarverwaltung. Einzelnes Anschaffungs-Datum (kein Paar), keine Preise, keine berechenbaren Felder. Zustand mit Anfangs-Default 'Verfügbar'."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Ausleih-Transaktion mit Datumspaar (ausleihdatum + geplantes_rueckgabedatum). Virtuelle Dauer-Berechnung in Stunden für Übersicht. Kein Preisfeld vorhanden, daher keine Multiplikations-Formeln."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "geplantes_enddatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Maintenance-Prozess mit Datumspaar (startdatum + geplantes_enddatum). Virtuelle Dauer-Berechnung in Tagen für Übersicht. Kosten-Feld ist reine Eingabe (keine berechenbare Beziehung), kein applookup-Preis vorhanden."
+    }
+  }
+}
