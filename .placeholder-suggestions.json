@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Max",
+    "nachname": "z. B. Müller",
+    "personalnummer": "z. B. HW-001",
+    "telefon": "z. B. 030 123456",
+    "email": "z. B. max@beispiel.de",
+    "abteilung": "z. B. Elektrotechnik",
+    "qualifikation": "Welche Qualifikation?",
+    "status": "z. B. Aktiv, Inaktiv",
+    "bemerkungen": "Spezielle Fähigkeiten, Verfügbarkeit..."
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Elektroschrauber",
+    "inventarnummer": "z. B. EW-001",
+    "kategorie": "z. B. Elektrowerkzeug",
+    "hersteller": "z. B. Bosch",
+    "modell": "z. B. GSR 18V-50",
+    "seriennummer": "z. B. SN-123456",
+    "anschaffungsdatum": "Wann gekauft?",
+    "standort": "z. B. Lager Süd",
+    "zustand": "z. B. Verfügbar",
+    "bemerkungen_werkzeug": "Zustand, Wartung, Besonderheiten..."
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Welches Werkzeug?",
+    "handwerker": "Welcher Handwerker?",
+    "ausleihdatum": "Wann ausleihen?",
+    "geplantes_rueckgabedatum": "Wann zurückbringen?",
+    "tatsaechliches_rueckgabedatum": "Tatsächliche Rückgabe?",
+    "status_ausleihe": "z. B. Ausgeliehen",
+    "bemerkungen_ausleihe": "Besonderheiten, Schäden..."
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug?",
+    "vorgangsart": "z. B. Wartung, Reparatur",
+    "verantwortlicher": "Verantwortlicher Handwerker?",
+    "startdatum": "Wann starten?",
+    "geplantes_enddatum": "Geplantes Ende?",
+    "tatsaechliches_enddatum": "Tatsächliches Ende?",
+    "beschreibung": "Was ist das Problem? Was wurde gemacht?",
+    "status_wartung": "z. B. Geplant, In Bearbeitung",
+    "kosten": "z. B. 150,00",
+    "bemerkungen_wartung": "Zusätzliche Informationen..."
+  }
+}

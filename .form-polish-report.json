@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Personalstammdaten ohne Preis-, Mengen- oder Beziehungs-Berechnungen. Nur Status-Default auf 'Aktiv' gesetzt."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Werkzeug-Katalog ohne Preise oder Mengenverwaltung. Defaults: Anschaffungsdatum=heute, Zustand='Verfügbar'. Keine Computeds."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Ausleih-Verwaltung mit Datumspaar (ausleihdatum/geplantes_rueckgabedatum). Virtuelle Dauer-Berechnung für Stunden-Anzeige im Aggregat. Keine applookup-Preise vorhanden."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "geplantes_enddatum", "vorgangsart", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Wartungs-/Reparaturvorgänge mit Datumspaar (startdatum/geplantes_enddatum). Virtuelle Dauer-Berechnung für Tage. Kosten sind Eingabefeld ohne Formel (keine applookup-Stundensätze im Schema)."
+    }
+  }
+}
