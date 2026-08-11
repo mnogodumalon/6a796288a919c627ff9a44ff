@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Vorname, Nachname, Email, Abteilung, Qualifikation). Keine numerischen Felder, keine applookup-Ketten mit Preis-Targets, keine Datumsdifferenzen. Status bekommt Default 'Aktiv'."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Name, Inventarnummer, Hersteller, Modell, Zustand). Kein Preis, keine Berechnung. Zustand bekommt Default 'Verfügbar'. FieldOrder reorg für logische Abfolge."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_tage"],
+      "reason": "Datumsbereich (Ausleihdatum ↔ geplantes Rückgabedatum) mit virtueller Dauer-Berechnung. Ausleihdatum = heute mit Zeit, geplante Rückgabe = +7 Tage. Status-Default 'Ausgeliehen'. Keine Preis-Felder, daher nur Dauer-Virtual."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 9,
+      "defaults_keys": ["startdatum", "status_wartung"],
+      "computed_keys": ["_wartung_geplante_dauer_tage", "_wartung_tatsaechliche_dauer_tage"],
+      "reason": "Zwei Datumsbereiche (Start ↔ geplantes Ende und Start ↔ tatsächliches Ende) mit virtuellen Dauer-Berechnungen. Startdatum = heute. Status-Default 'Geplant'. Kosten-Feld bleibt manuell, da kein klarer Stundensatz-Multiplikator (Handwerker-Entity hat keinen stundensatz). FieldOrder beibehält sinnvolle row-Pair."
+    }
+  }
+}
