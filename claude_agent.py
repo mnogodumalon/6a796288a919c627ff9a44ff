@@ -103,7 +103,7 @@ LA_FRONTEND_URL = os.getenv("LA_FRONTEND_URL", "https://my.living-apps.de")
 # Explicit dashboard language set by the host (get_agent_command). Default
 # stays German — same behavior as before the language feature.
 UI_LANGUAGE = os.getenv("LANGUAGE", "de")
-_UI_LANGUAGE_NAMES = {"de": "German", "en": "English", "cs": "Czech"}
+_UI_LANGUAGE_NAMES = {"de": "German", "en": "English"}
 UI_LANGUAGE_NAME = _UI_LANGUAGE_NAMES.get(UI_LANGUAGE, "German")
 _TONE_RULE = (
     ' Always use "du/dein/dir" — NEVER "Sie/Ihr/Ihnen".' if UI_LANGUAGE == "de" else ""
@@ -570,13 +570,15 @@ def _emit(payload: dict) -> None:
 
 # ── Stream-progress plumbing ─────────────────────────────────────────
 #
-# include_partial_messages makes the CLI forward the raw API stream events, so
-# a long generation is a steady flow of content_block_delta events instead of
-# a silent multi-minute gap. Two consumers:
-#   1. the stall watchdog — a [WAIT] then means a REAL stall (rate-limit
-#      backoff, dead connection), never "the model is writing a big file";
-#      a live run mis-attributed a 243s single-Write generation to backoff
-#      because the two were indistinguishable in the log.
+# include_partial_messages makes the CLI forward the raw API stream events.
+# CAVEAT (live-proven): for large tool inputs this CLI build delivers the
+# partial_json deltas in a BURST shortly before the block completes, not as a
+# steady flow — a 2-minute Write shows as silence and then ~22k chars at once.
+# Silence is therefore AMBIGUOUS (big generation OR backoff), and the watchdog
+# text must not claim otherwise: a run generating 38k tokens over 9 minutes at
+# normal token speed was misread as rate-limit stalls because of that claim.
+# Two consumers:
+#   1. the stall watchdog — one line per 30s of silence, cause kept neutral.
 #   2. a throttled `progress` log line (chars generated so far), so the
 #      wall-clock of a large Write is visible while it happens.
 _PROGRESS_EVERY_S = 15
@@ -1254,7 +1256,6 @@ CRITICAL: Dispatch ALL subagents in a SINGLE response for maximum parallelism.""
         # arrive continuously), so a [WAIT] is a REAL stall — the text says
         # which of the two worlds this build runs in.
         _mark_event()
-        streaming = bool(getattr(options, "include_partial_messages", False))
 
         async def _stall_watchdog():
             reported = 0.0
@@ -1263,13 +1264,12 @@ CRITICAL: Dispatch ALL subagents in a SINGLE response for maximum parallelism.""
                 silent = time.time() - _LAST_EVENT["t"]
                 if silent >= 30 and silent >= reported + 30:
                     reported = silent
-                    cause = (
-                        "echter Stall: Rate-Limit-Backoff oder Verbindung — eine laufende Generierung würde streamen"
-                        if streaming
-                        else "Rate-Limit-Backoff oder lange Generierung"
-                    )
+                    # Deliberately neutral: this CLI build delivers partial_json
+                    # deltas of big tool inputs as an end-of-block burst, so
+                    # silence here usually IS a large generation in progress
+                    # (see the stream-progress plumbing note above).
                     print(
-                        f"[WAIT] {round(silent)}s ohne Modell-Event ({cause})",
+                        f"[WAIT] {round(silent)}s ohne Stream-Event — meist eine große Generierung (Tool-Input-Deltas kommen gebündelt), sonst Rate-Limit-Backoff",
                         flush=True,
                     )
                 elif silent < 30:

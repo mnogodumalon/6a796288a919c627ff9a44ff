@@ -310,7 +310,7 @@ export function HandwerkerDialog({ open, onClose, onSubmit, defaultValues, recor
         <Label htmlFor="vorname">{fieldLabel('handwerker', 'vorname')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Input
           id="vorname"
-          placeholder="z. B. Max"
+          placeholder=""
           value={fields.vorname ?? ''}
           onChange={e => setFields(f => ({ ...f, vorname: e.target.value }))}
           required
@@ -325,7 +325,7 @@ export function HandwerkerDialog({ open, onClose, onSubmit, defaultValues, recor
         <Label htmlFor="nachname">{fieldLabel('handwerker', 'nachname')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Input
           id="nachname"
-          placeholder="z. B. Müller"
+          placeholder=""
           value={fields.nachname ?? ''}
           onChange={e => setFields(f => ({ ...f, nachname: e.target.value }))}
           required
@@ -340,7 +340,7 @@ export function HandwerkerDialog({ open, onClose, onSubmit, defaultValues, recor
         <Label htmlFor="personalnummer">{fieldLabel('handwerker', 'personalnummer')}</Label>
         <Input
           id="personalnummer"
-          placeholder="z. B. PER-2026-001"
+          placeholder=""
           value={fields.personalnummer ?? ''}
           onChange={e => setFields(f => ({ ...f, personalnummer: e.target.value }))}
         />
@@ -362,7 +362,7 @@ export function HandwerkerDialog({ open, onClose, onSubmit, defaultValues, recor
         <Input
           id="email"
           type="email"
-          placeholder="z. B. max.mueller@example.com"
+          placeholder=""
           value={fields.email ?? ''}
           onChange={e => setFields(f => ({ ...f, email: e.target.value }))}
         />
@@ -373,7 +373,7 @@ export function HandwerkerDialog({ open, onClose, onSubmit, defaultValues, recor
         <Label htmlFor="abteilung">{fieldLabel('handwerker', 'abteilung')}</Label>
         <Input
           id="abteilung"
-          placeholder="z. B. Elektrik Nord"
+          placeholder=""
           value={fields.abteilung ?? ''}
           onChange={e => setFields(f => ({ ...f, abteilung: e.target.value }))}
         />
@@ -492,7 +492,7 @@ export function HandwerkerDialog({ open, onClose, onSubmit, defaultValues, recor
         <Label htmlFor="bemerkungen">{fieldLabel('handwerker', 'bemerkungen')}</Label>
         <Textarea
           id="bemerkungen"
-          placeholder="Spezialausbildungen, Zertifikate..."
+          placeholder=""
           value={fields.bemerkungen ?? ''}
           onChange={e => setFields(f => ({ ...f, bemerkungen: e.target.value }))}
           rows={3}

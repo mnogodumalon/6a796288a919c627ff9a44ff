@@ -14,7 +14,7 @@
  *   </custom:intent-imports>
  *   …
  *   <custom:intents>
- *   { path: '/intents/neue-buchung', label: { de: 'Neue Buchung', en: 'New booking', cs: 'Nová rezervace' }, icon: IconCalendarPlus, description: 'Buchung in 3 Schritten anlegen' },
+ *   { path: '/intents/neue-buchung', label: { de: 'Neue Buchung', en: 'New booking' }, icon: IconCalendarPlus, description: { de: 'Buchung in 3 Schritten anlegen', en: 'Create a booking in 3 steps' } },
  *   </custom:intents>
  */
 import type { ComponentType } from 'react';
@@ -27,21 +27,24 @@ export interface IntentLink {
   /** Route path as wired in App.tsx (HashRouter), e.g. '/intents/neue-buchung'. */
   path: string;
   /**
-   * Short sidebar label (1–3 words). Preferred: all three UI languages
-   * ({ de, en, cs } — the runtime switcher picks the active one). A plain
-   * string stays valid (pre-i18n dashboards) and renders as-is.
+   * Short sidebar label (1–3 words). Preferred: both UI languages
+   * ({ de, en } — the runtime switcher picks the active one; cs stays
+   * readable for legacy entries). A plain string stays valid and renders as-is.
    */
   label: string | { de?: string; en?: string; cs?: string };
   /** Tabler icon COMPONENT reference (not rendered JSX), e.g. IconCalendarPlus. */
   icon?: ComponentType<{ size?: number | string; className?: string; stroke?: number | string }>;
-  /** One-line purpose — shown as tooltip. */
-  description?: string;
+  /**
+   * One-line purpose. Same shape as `label`: prefer both UI languages so a
+   * language switch reaches it; a plain string stays valid.
+   */
+  description?: string | { de?: string; en?: string; cs?: string };
 }
 
 export const INTENTS: IntentLink[] = [
   // <custom:intents>
-  { path: '/intents/werkzeug-ausleihen', label: { de: 'Werkzeug ausleihen', en: 'Borrow tool', cs: 'Půjčit nástroj' }, icon: IconHandMove, description: 'Handwerker und Werkzeug wählen, Ausleihe anlegen' },
-  { path: '/intents/werkzeug-rueckgabe', label: { de: 'Werkzeug zurückgeben', en: 'Return tool', cs: 'Vrátit nástroj' }, icon: IconArrowBackUp, description: 'Ausleihe abschließen und ggf. Wartung anlegen' },
+  { path: '/intents/werkzeug-ausleihen', label: { de: 'Werkzeug ausleihen', en: 'Borrow tool', cs: 'Půjčit nástroj' }, icon: IconHandMove, description: { de: 'Handwerker und Werkzeug wählen, Ausleihe anlegen', en: 'Select craftsman and tool, create loan' } },
+  { path: '/intents/werkzeug-rueckgabe', label: { de: 'Werkzeug zurückgeben', en: 'Return tool', cs: 'Vrátit nástroj' }, icon: IconArrowBackUp, description: { de: 'Ausleihe abschließen und ggf. Wartung anlegen', en: 'Complete loan and create maintenance if needed' } },
   // </custom:intents>
 ];
 

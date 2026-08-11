@@ -387,7 +387,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
         <Label htmlFor="werkzeug_wartung">{fieldLabel('wartung_reparatur', 'werkzeug_wartung')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Combobox
           id="werkzeug_wartung"
-          placeholder="Welches Werkzeug wird gewartet?"
+          placeholder=""
           items={werkzeugeListAll.map(r => ({
             id: r.record_id,
             label: String(r.fields.werkzeugname ?? r.record_id),
@@ -443,7 +443,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
         <Label htmlFor="verantwortlicher">{fieldLabel('wartung_reparatur', 'verantwortlicher')}</Label>
         <Combobox
           id="verantwortlicher"
-          placeholder="Wer führt es durch?"
+          placeholder=""
           items={handwerkerListAll.map(r => ({
             id: r.record_id,
             label: String(r.fields.vorname ?? r.record_id),
@@ -460,7 +460,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
         <Label htmlFor="startdatum">{fieldLabel('wartung_reparatur', 'startdatum')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <DatePicker
           id="startdatum"
-          placeholder="Wann startet die Wartung?"
+          placeholder=""
           mode="date"
           value={fields.startdatum ?? null}
           onChange={v => setFields(f => ({ ...f, startdatum: v ?? undefined }))}
@@ -476,7 +476,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
         <Label htmlFor="geplantes_enddatum">{fieldLabel('wartung_reparatur', 'geplantes_enddatum')}</Label>
         <DatePicker
           id="geplantes_enddatum"
-          placeholder="Wann soll sie fertig sein?"
+          placeholder=""
           mode="date"
           value={fields.geplantes_enddatum ?? null}
           onChange={v => setFields(f => ({ ...f, geplantes_enddatum: v ?? undefined }))}
@@ -488,7 +488,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
         <Label htmlFor="tatsaechliches_enddatum">{fieldLabel('wartung_reparatur', 'tatsaechliches_enddatum')}</Label>
         <DatePicker
           id="tatsaechliches_enddatum"
-          placeholder="Wann war sie fertig?"
+          placeholder=""
           mode="date"
           value={fields.tatsaechliches_enddatum ?? null}
           onChange={v => setFields(f => ({ ...f, tatsaechliches_enddatum: v ?? undefined }))}
@@ -500,7 +500,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
         <Label htmlFor="beschreibung">{fieldLabel('wartung_reparatur', 'beschreibung')}</Label>
         <Textarea
           id="beschreibung"
-          placeholder="Was ist das Problem? Welche Maßnahmen wurden durchgeführt?"
+          placeholder=""
           value={fields.beschreibung ?? ''}
           onChange={e => setFields(f => ({ ...f, beschreibung: e.target.value }))}
           rows={3}
@@ -577,7 +577,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
           type="number"
           step="any"
           {...numberInputProps(formEnhancements, 'kosten')}
-          placeholder="z. B. 45,50"
+          placeholder=""
           value={fields.kosten !== undefined ? fields.kosten : (computedValues['kosten'] ?? '')}
           onChange={e => setFields(f => ({ ...f, kosten: clampNumberValue(formEnhancements, 'kosten', e.target.value) }))}
         />
@@ -588,7 +588,7 @@ export function WartungReparaturDialog({ open, onClose, onSubmit, defaultValues,
         <Label htmlFor="bemerkungen_wartung">{fieldLabel('wartung_reparatur', 'bemerkungen_wartung')}</Label>
         <Textarea
           id="bemerkungen_wartung"
-          placeholder="Ersatzteile, Inspektionsergebnisse, Hinweise..."
+          placeholder=""
           value={fields.bemerkungen_wartung ?? ''}
           onChange={e => setFields(f => ({ ...f, bemerkungen_wartung: e.target.value }))}
           rows={3}

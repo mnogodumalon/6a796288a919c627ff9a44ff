@@ -115,7 +115,7 @@ import { createPortal } from 'react-dom';
 import { IconArrowLeft, IconPencil, IconX, IconAlertCircle, IconRefresh, IconFileOff, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
 import { formatDate, formatDateTime, formatCurrency } from '@/lib/formatters';
-import { locale as i18nLocale, type Locale } from '@/i18n';
+import { coreLocale as i18nLocale, type CoreLocale as Locale } from '@/i18n';
 
 // The widget's OWN chrome labels. They are prop DEFAULTS, and a destructuring
 // default is evaluated per render — so `L()[...]` here stays language-fresh
@@ -135,12 +135,6 @@ const LABELS: Record<Locale, {
     prev: 'Previous', next: 'Next',
     notFound: 'Entry not found', loadError: 'Failed to load',
     retry: 'Try again', timelineEmpty: 'No entries yet',
-  },
-  cs: {
-    edit: 'Upravit', close: 'Zavřít', back: 'Zpět',
-    prev: 'Předchozí', next: 'Další',
-    notFound: 'Záznam nenalezen', loadError: 'Chyba při načítání',
-    retry: 'Zkusit znovu', timelineEmpty: 'Zatím žádné záznamy',
   },
 };
 const L = () => LABELS[i18nLocale];

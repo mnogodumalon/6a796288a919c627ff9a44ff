@@ -52,6 +52,7 @@ const tt = makeT({
     requireMissing: 'Bitte wähle Handwerker und Werkzeug aus Schritt 1 und 2.',
     neuStart: 'Neu starten',
     errorSubmit: 'Fehler beim Anlegen der Ausleihe. Bitte erneut versuchen.',
+    nr: 'Nr. {p0}',
   },
   en: {
     step1: 'Craftsman',
@@ -85,6 +86,7 @@ const tt = makeT({
     requireMissing: 'Please select a craftsman and tool from steps 1 and 2.',
     neuStart: 'Restart',
     errorSubmit: 'Error creating the loan. Please try again.',
+    nr: 'No. {p0}',
   },
   cs: {
     step1: 'Řemeslník',
@@ -118,6 +120,7 @@ const tt = makeT({
     requireMissing: 'Prosím vyberte řemeslníka a nástroj v krocích 1 a 2.',
     neuStart: 'Začít znovu',
     errorSubmit: 'Chyba při vytváření půjčení. Zkuste to prosím znovu.',
+    nr: 'No. {p0}',
   },
 });
 
@@ -247,7 +250,7 @@ export default function WerkzeugAusleihenPage() {
             id: w.record_id,
             title: w.fields.werkzeugname ?? w.record_id,
             subtitle: [
-              w.fields.inventarnummer ? `Nr. ${w.fields.inventarnummer}` : null,
+              w.fields.inventarnummer ? tt('nr', { p0: w.fields.inventarnummer }) : null,
               w.fields.kategorie?.label,
               w.fields.standort,
               w.fields.zustand?.label,

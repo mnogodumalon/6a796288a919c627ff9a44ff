@@ -325,7 +325,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="werkzeugname">{fieldLabel('werkzeuge', 'werkzeugname')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Input
           id="werkzeugname"
-          placeholder="z. B. Multimeter digital"
+          placeholder=""
           value={fields.werkzeugname ?? ''}
           onChange={e => setFields(f => ({ ...f, werkzeugname: e.target.value }))}
           required
@@ -340,7 +340,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="inventarnummer">{fieldLabel('werkzeuge', 'inventarnummer')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Input
           id="inventarnummer"
-          placeholder="z. B. WZ-E-00451"
+          placeholder=""
           value={fields.inventarnummer ?? ''}
           onChange={e => setFields(f => ({ ...f, inventarnummer: e.target.value }))}
           required
@@ -357,7 +357,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
           value={lookupKey(fields.kategorie) ?? ''}
           onValueChange={v => setFields(f => ({ ...f, kategorie: v === 'none' ? undefined : v as any }))}
         >
-          <SelectTrigger id="kategorie" className="max-sm:h-11"><SelectValue placeholder="Wähle eine Kategorie" /></SelectTrigger>
+          <SelectTrigger id="kategorie" className="max-sm:h-11"><SelectValue placeholder="" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="none">—</SelectItem>
             <SelectItem value="messgeraet">{lookupLabel('werkzeuge', 'kategorie', 'messgeraet') ?? 'Messgerät'}</SelectItem>
@@ -375,7 +375,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="hersteller">{fieldLabel('werkzeuge', 'hersteller')}</Label>
         <Input
           id="hersteller"
-          placeholder="z. B. Fluke"
+          placeholder=""
           value={fields.hersteller ?? ''}
           onChange={e => setFields(f => ({ ...f, hersteller: e.target.value }))}
         />
@@ -386,7 +386,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="modell">{fieldLabel('werkzeuge', 'modell')}</Label>
         <Input
           id="modell"
-          placeholder="z. B. 87-V"
+          placeholder=""
           value={fields.modell ?? ''}
           onChange={e => setFields(f => ({ ...f, modell: e.target.value }))}
         />
@@ -397,7 +397,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="seriennummer">{fieldLabel('werkzeuge', 'seriennummer')}</Label>
         <Input
           id="seriennummer"
-          placeholder="z. B. 45821936"
+          placeholder=""
           value={fields.seriennummer ?? ''}
           onChange={e => setFields(f => ({ ...f, seriennummer: e.target.value }))}
         />
@@ -408,7 +408,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="anschaffungsdatum">{fieldLabel('werkzeuge', 'anschaffungsdatum')}</Label>
         <DatePicker
           id="anschaffungsdatum"
-          placeholder="Wann wurde es gekauft?"
+          placeholder=""
           mode="date"
           value={fields.anschaffungsdatum ?? null}
           onChange={v => setFields(f => ({ ...f, anschaffungsdatum: v ?? undefined }))}
@@ -420,7 +420,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="standort">{fieldLabel('werkzeuge', 'standort')}</Label>
         <Input
           id="standort"
-          placeholder="z. B. Lager A, Regal 3"
+          placeholder=""
           value={fields.standort ?? ''}
           onChange={e => setFields(f => ({ ...f, standort: e.target.value }))}
         />
@@ -433,7 +433,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
           value={lookupKey(fields.zustand) ?? ''}
           onValueChange={v => setFields(f => ({ ...f, zustand: v === 'none' ? undefined : v as any }))}
         >
-          <SelectTrigger id="zustand" className="max-sm:h-11"><SelectValue placeholder="Wähle den aktuellen Zustand" /></SelectTrigger>
+          <SelectTrigger id="zustand" className="max-sm:h-11"><SelectValue placeholder="" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="none">—</SelectItem>
             <SelectItem value="verfuegbar">{lookupLabel('werkzeuge', 'zustand', 'verfuegbar') ?? 'Verfügbar'}</SelectItem>
@@ -524,7 +524,7 @@ export function WerkzeugeDialog({ open, onClose, onSubmit, defaultValues, record
         <Label htmlFor="bemerkungen_werkzeug">{fieldLabel('werkzeuge', 'bemerkungen_werkzeug')}</Label>
         <Textarea
           id="bemerkungen_werkzeug"
-          placeholder="Besonderheiten, Verschleiß, Wartungshinweise..."
+          placeholder=""
           value={fields.bemerkungen_werkzeug ?? ''}
           onChange={e => setFields(f => ({ ...f, bemerkungen_werkzeug: e.target.value }))}
           rows={3}

@@ -724,9 +724,5 @@
     "cedar_basin": "2026-08-31"
   },
   "additionalModelOptionsCache": [],
-  "additionalModelCostsCache": {},
-  "metricsStatusCache": {
-    "enabled": true,
-    "timestamp": 1786441503966
-  }
+  "additionalModelCostsCache": {}
 }

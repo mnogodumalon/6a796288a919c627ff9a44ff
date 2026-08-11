@@ -179,7 +179,7 @@ import { Button } from '@/components/ui/button';
 // Shared widget MECHANICS (M4) — tone class-maps, drag-FSM core.
 // Sister widgets never import each other; ALL import './primitives'.
 import { TONE_DOT, TONE_ACCENT, usePointerDrag, useRejectNotice, useNarrowContainer, type DragGesture, type WriteResult } from './primitives';
-import { locale as i18nLocale, type Locale } from '@/i18n';
+import { coreLocale as i18nLocale, type CoreLocale as Locale } from '@/i18n';
 
 // The widget's OWN chrome strings — indexed at RENDER time (`KB[i18nLocale]`),
 // never hoisted into a module constant.
@@ -202,13 +202,6 @@ const KB: Record<Locale, {
     expandColumn: (label, n) => `Expand column ${label} (${n})`,
     collapseColumn: (label) => `Collapse column ${label}`,
     newCard: (label) => `New card — ${label}`,
-  },
-  cs: {
-    noStatus: 'Bez stavu', dismiss: 'Zavřít hlášení', card: 'Karta',
-    errorTitle: 'Nástěnku se nepodařilo načíst', retry: 'Zkusit znovu',
-    expandColumn: (label, n) => `Rozbalit sloupec ${label} (${n})`,
-    collapseColumn: (label) => `Sbalit sloupec ${label}`,
-    newCard: (label) => `Nová karta — ${label}`,
   },
 };
 

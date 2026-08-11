@@ -69,7 +69,7 @@ import {
   IconX, IconChevronLeft, IconChevronRight, IconZoomIn, IconZoomOut,
   IconZoomReset, IconDownload, IconFile, IconFileTypePdf,
 } from '@tabler/icons-react';
-import { locale as i18nLocale, type Locale } from '@/i18n';
+import { coreLocale as i18nLocale, type CoreLocale as Locale } from '@/i18n';
 
 // The widget's OWN chrome strings — indexed at RENDER time (`MV[i18nLocale]`),
 // never hoisted into a module constant.
@@ -86,11 +86,6 @@ const MV: Record<Locale, {
     file: 'File', openPreview: 'Open preview', zoomOut: 'Zoom out',
     zoomReset: 'Reset zoom', zoomIn: 'Zoom in', close: 'Close',
     prev: 'Previous', next: 'Next',
-  },
-  cs: {
-    file: 'Soubor', openPreview: 'Otevřít náhled', zoomOut: 'Zmenšit',
-    zoomReset: 'Zrušit přiblížení', zoomIn: 'Zvětšit', close: 'Zavřít',
-    prev: 'Předchozí', next: 'Další',
   },
 };
 

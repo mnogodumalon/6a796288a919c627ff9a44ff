@@ -296,7 +296,7 @@ import {
 } from './primitives';
 // `Locale` above is date-fns' (the consumer's date-format locale) — the UI
 // language is a separate axis and comes from the runtime layer.
-import { locale as i18nLocale, type Locale as UiLocale } from '@/i18n';
+import { coreLocale as i18nLocale, type CoreLocale as UiLocale } from '@/i18n';
 
 // Closed enums — exported as const arrays so consumers reference instead of
 // transcribe (a mistyped 'danger' was a real build failure). The union types are
@@ -403,7 +403,6 @@ export function visibleRange(cursor: Date, view: CalendarView, weekStartsOn: 0 |
 const VIEW_LABELS: Record<UiLocale, Record<CalendarView, string>> = {
   de: { month: 'Monat', week: 'Woche', day: 'Tag', agenda: 'Agenda', year: 'Jahr' },
   en: { month: 'Month', week: 'Week', day: 'Day', agenda: 'Agenda', year: 'Year' },
-  cs: { month: 'Měsíc', week: 'Týden', day: 'Den', agenda: 'Agenda', year: 'Rok' },
 };
 
 // The widget's OWN chrome strings. Indexed at RENDER time (`CAL_TEXTS[i18nLocale]`)
@@ -423,12 +422,6 @@ const CAL_TEXTS: Record<UiLocale, {
     dismiss: 'Dismiss message', allDay: 'All day',
     noEventsInRange: 'No events in this period.',
     noEventsOnDay: 'No events on this day.',
-  },
-  cs: {
-    threeDays: '3 dny', prev: 'Zpět', next: 'Dále', today: 'Dnes',
-    dismiss: 'Zavřít hlášení', allDay: 'Celý den',
-    noEventsInRange: 'V tomto období nejsou žádné termíny.',
-    noEventsOnDay: 'V tento den nejsou žádné termíny.',
   },
 };
 

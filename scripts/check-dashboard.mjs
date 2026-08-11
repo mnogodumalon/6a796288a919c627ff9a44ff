@@ -269,26 +269,38 @@ if (gridIdx >= 0) {
 // names, codes) take an /* i18n-exempt */ on the same line.
 {
   const literalHits = [];
-  const jsxText = />[^<>{}\n]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^<>{}\n]*</;
+  // The closing `<` must start a tag (`</` or `<Tag`). Without that a
+  // comparison pair reads as JSX text: `x > 0 && (a.fields.b ?? 0) < y`
+  // matched, and the fixer dutifully annotated pure logic (live-seen).
+  // The `>` must close a TAG. Without the lookbehind the `>` of an arrow
+  // function matched, so `(key: K) => (e: React.ChangeEvent<HTMLInputElement
+  // | HTMLTextAreaElement>) =>` was reported as hardcoded UI text and cost a
+  // run a gate-red plus an /* i18n-exempt */ on pure type syntax.
+  const jsxText = /(?<![=-])>[^<>{}\n]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^<>{}\n]*<[/A-Za-z]/;
   const attrText = /\b(?:title|placeholder|label|aria-label|alt|emptyLabel|emptyText)=(?:\{\s*)?(?:"[^"{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^"{}]*"|'[^'{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^'{}]*')/;
   // Widget props take their text as object fields (dimension={{ label: 'Kosten' }},
   // measure label, Kanban column labels) — same rule, different syntax.
   const objText = /\b(?:title|label|name|emptyLabel|emptyText|hint|description)\s*:\s*(?:"[^"{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^"{}]*"|'[^'{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^'{}]*')/;
+  // A sentence computed in a helper and rendered as {subtitle} is in no
+  // JSX text, no attribute and no allowlisted prop — it stayed German
+  // while the page around it turned English. One word may be a status
+  // key the API reads back ('Aktiv'), so only whole phrases count.
+  const returnText = /\breturn\s+(?:"(?=[^"]*[A-Za-zÄÖÜäöüßÀ-ž]{3,})(?=[^"]*\s)[^"{}]*"|'(?=[^']*[A-Za-zÄÖÜäöüßÀ-ž]{3,})(?=[^']*\s)[^'{}]*')/;
   for (let i = 0; i < dashLines.length; i++) {
     const l = dashLines[i];
     if (l.includes('i18n-exempt')) continue;
     const trimmed = l.trim();
     if (trimmed.startsWith('//') || trimmed.startsWith('*') || trimmed.startsWith('/*')) continue;
-    if (jsxText.test(l) || attrText.test(l) || objText.test(l)) literalHits.push(`    line ${i + 1}: ${l}`);
+    if (jsxText.test(l) || attrText.test(l) || objText.test(l) || returnText.test(l)) literalHits.push(`    line ${i + 1}: ${l}`);
   }
   if (literalHits.length) {
     errors.push(
-      "Hardcoded UI text found — the dashboard has a runtime language switcher (de/en/cs), so every string must render through i18n. Define your page texts ONCE via makeT from '@/i18n' (all three languages) and use {tt('key')}; scaffold text comes from t()/appLabel()/fieldLabel()/lookupLabel(). Brand names or codes: append /* i18n-exempt */ on that line." +
+      "Hardcoded UI text found — the dashboard has a runtime language switcher, so every string must render through i18n. Define your page texts ONCE via makeT from '@/i18n' (de and en) and use {tt('key')}; scaffold text comes from t()/appLabel()/fieldLabel()/lookupLabel(). Brand names or codes: append /* i18n-exempt */ on that line." +
       '\n' + literalHits.slice(0, 10).join('\n')
     );
   }
   if (literalHits.length && !src.includes('makeT(')) {
-    errors.push("No makeT( table found — import { makeT } from '@/i18n' and define { de: {...}, en: {...}, cs: {...} } once at the top of the file.");
+    errors.push("No makeT( table found — import { makeT } from '@/i18n' and define { de: {...}, en: {...} } once at the top of the file.");
   }
 }
 

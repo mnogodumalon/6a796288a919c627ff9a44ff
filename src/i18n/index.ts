@@ -1,53 +1,63 @@
 /**
  * src/i18n/index.ts — runtime language layer (generated). NEVER edit.
  *
- * The dashboard ships ALL locales (de/en/cs); the active one is chosen at
- * runtime: LA profile language → localStorage 'app-locale' (header switcher)
- * → build locale. Switching remounts the tree (LocaleGate in App.tsx), so
- * plain calls inside component bodies stay correct — never hoist their
- * results into module-scope constants.
+ * The dashboard ships the CORE locales de/en baked in; ADDITIONAL locales
+ * (e.g. ru) load as overlays from `locales/{lang}.json` next to the bundle —
+ * uploaded server-side, no rebuild needed. The active locale is chosen at
+ * runtime: LA profile language → localStorage 'app-locale' → build locale.
+ * Switching remounts the tree (LocaleGate in App.tsx), so plain calls inside
+ * component bodies stay correct — never hoist their results into module-scope
+ * constants.
  *
  * Scaffold chrome and structure labels are already localized — read them,
  * never re-type them:
  *   t(key, params?)                 — catalog chrome text ('save', 'search', …)
+ *   tp(key, n, params?)             — plural-aware: catalog keys key_one/key_few/
+ *                                     key_many/key_other (Intl.PluralRules)
  *   appLabel(entityKey)             — localized entity display name
  *   fieldLabel(entityKey, field)    — localized field label
  *   lookupLabel(entityKey, field, optionKey) — lookup option label (null = unknown)
  *   dateFormat()/dateTimeFormat()/dateFnsLocale()/localeTag()/CURRENCY
  *
  * Text YOU write (overview, intent pages, bespoke public pages) must work in
- * all three languages. Define it ONCE via makeT and render through it:
+ * every language. Define it ONCE via makeT and render through it:
  *
  *   import { makeT, appLabel } from '@/i18n';
  *   const tt = makeT({
  *     de: { util: 'Auslastung', open: '{n} offene Aufträge' },
  *     en: { util: 'Utilization', open: '{n} open orders' },
- *     cs: { util: 'Vytížení', open: '{n} otevřených zakázek' },
  *   });
  *   … <h2>{tt('util')}</h2> <p>{tt('open', { n: count })}</p>
  *
+ * de/en are required in the table; additional languages resolve through
+ * the overlay automatically (keyed by your en texts — keep them meaningful).
+ *
  * WRONG: <h2>Auslastung</h2>            (one language, switcher breaks it)
- * RIGHT: <h2>{tt('util')}</h2>          (three languages, defined once)
+ * RIGHT: <h2>{tt('util')}</h2>          (every language, defined once)
  */
-import { de as dfDe, cs as dfCs } from 'date-fns/locale';
+import { de as dfDe } from 'date-fns/locale';
 import type { Locale as DateFnsLocale } from 'date-fns';
 
-export type Locale = 'de' | 'en' | 'cs';
-export const LOCALES: Locale[] = ['de', 'en', 'cs'];
-export const LOCALE_NAMES: Record<Locale, string> = { de: 'Deutsch', en: 'English', cs: 'Čeština' };
+// Core = baked into the bundle. Locale stays an OPEN string type so overlay
+// languages added later never invalidate today's code (`string & {}` keeps
+// core autocompletion without closing the union).
+export type CoreLocale = 'de' | 'en';
+export type Locale = CoreLocale | (string & {});
+export const CORE_LOCALES: CoreLocale[] = ['de', 'en'];
+export const LOCALES: Locale[] = [...CORE_LOCALES];
+export const LOCALE_NAMES: Record<string, string> = { de: 'Deutsch', en: 'English' };
 
-export const BUILD_LOCALE: Locale = 'de';
+export const BUILD_LOCALE: CoreLocale = 'de';
 
-// Currency is a property of the DATA, not of the UI language — it stays
-// fixed at the build-time choice while number formatting follows the locale.
+// Currency is a property of the DATA, never of the UI language.
 export const CURRENCY = 'EUR';
 
 const STORAGE_KEY = 'app-locale';
 const LA_API_URL = 'https://my.living-apps.de/rest';
 
 // ── Generated catalogs ─────────────────────────────────────────────
-// UI chrome strings (generator UI_TEXTS, all locales):
-export const UI_CATALOG: Record<Locale, Record<string, string>> = {
+// UI chrome strings (generator UI_TEXTS, all core locales):
+export const UI_CATALOG: Record<CoreLocale, Record<string, string>> = {
   "de": {
     "overview": "Übersicht",
     "navigation": "Navigation",
@@ -785,391 +795,24 @@ export const UI_CATALOG: Record<Locale, Record<string, string>> = {
     "relations": "Linked",
     "not_found": "Record not found",
     "required_hint": "Required"
-  },
-  "cs": {
-    "overview": "Přehled",
-    "navigation": "Navigace",
-    "cancel": "Zrušit",
-    "delete": "Smazat",
-    "save": "Uložit",
-    "saving": "Ukládám...",
-    "submit_error": "Uložení se nezdařilo.",
-    "create": "Vytvořit",
-    "search": "Hledat...",
-    "actions": "Akce",
-    "no_results": "Nebyly nalezeny žádné výsledky.",
-    "no_data_yet": "Zatím žádné {entity}. Přidej první!",
-    "select_placeholder": "Vybrat...",
-    "confirm_delete_desc": "Opravdu chceš tento záznam smazat? Tuto akci nelze vrátit zpět.",
-    "add": "Přidat",
-    "view_entity": "Zobrazit {entity}",
-    "edit_button": "Upravit",
-    "edit_entity": "Upravit {entity}",
-    "new_entity": "Přidat {entity}",
-    "delete_entity": "Smazat {entity}",
-    "yes": "Ano",
-    "no": "Ne",
-    "search_entity": "Hledat {entity}...",
-    "in_system": "{entity} v systému",
-    "welcome": "Vítej",
-    "overview_subtitle": "Zde je přehled tvých dat.",
-    "management": "Správa",
-    "dashboard": "Dashboard",
-    "date_format": "dd.MM.yyyy",
-    "admin": "Správa",
-    "admin_subtitle": "Správa všech dat",
-    "records": "Záznamy",
-    "select_all": "Vybrat vše",
-    "bulk_delete": "Smazat vybrané",
-    "bulk_clone": "Kopírovat",
-    "bulk_edit": "Upravit pole",
-    "selected": "vybráno",
-    "apply_to_n": "Použít na {n} záznamů",
-    "filter": "Filtrovat",
-    "clear_filters": "Zrušit filtry",
-    "choose_field": "Vybrat pole",
-    "new_value": "Nová hodnota",
-    "all_values": "Vše",
-    "confirm_bulk_delete": "Opravdu smazat {n} záznamů? Tuto akci nelze vrátit zpět.",
-    "deselect_all": "Zrušit výběr",
-    "applying": "Používám...",
-    "create_new_app": "Vytvořit novou aplikaci",
-    "apps_label": "Aplikace",
-    "profile_label": "Profil",
-    "back": "Zpět",
-    "display_section": "Zobrazení",
-    "data_management": "Správa dat",
-    "apps_search": "Hledat...",
-    "apps_no_results": "Žádné aplikace nenalezeny",
-    "apps_page_of": "z",
-    "sort_newest": "Nejnovější první",
-    "sort_oldest": "Nejstarší první",
-    "sort_az": "Název, A → Z",
-    "sort_za": "Název, Z → A",
-    "edit_dashboard": "Klar Lab",
-    "developer": "Vývojář",
-    "beta_features": "Beta funkce",
-    "actions_section": "Akce",
-    "public_pages_section": "Veřejné stránky",
-    "legal_imprint": "Impresum",
-    "legal_privacy": "Ochrana osobních údajů",
-    "source_code": "Zdrojový kód",
-    "copy_code": "Kopírovat kód",
-    "copied": "Zkopírováno!",
-    "code_for": "Kód pro",
-    "delete_confirm": "Smazat akci",
-    "delete_confirm_from": "z",
-    "action_deleted": "Akce smazána:",
-    "empty_action": "Prázdná akce",
-    "run": "Spustit",
-    "field_required": "je povinné",
-    "file_too_large": "Soubor překračuje limit 10 MB.",
-    "preparing": "Připravuji...",
-    "busy": "Pracuji...",
-    "files_label": "Soubory",
-    "no_files": "Žádné soubory",
-    "sort_name_az": "Název A→Z",
-    "sort_name_za": "Název Z→A",
-    "delete_file_confirm": "Smazat soubor",
-    "file_deleted": "Soubor smazán:",
-    "datetime_format": "dd.MM.yyyy, HH:mm",
-    "download": "Stáhnout",
-    "auth_error_title": "Nejsi přihlášen(a).",
-    "auth_login_button": "Přihlásit se",
-    "repair_text": "Opravit dashboard",
-    "repair_error_title": "Něco se pokazilo",
-    "repair_reload": "Znovu načíst",
-    "repair_starting": "Spouštím opravu...",
-    "repair_running": "Oprava probíhá...",
-    "repair_done_title": "Dashboard opraven",
-    "repair_done_desc": "Problém byl vyřešen. Načti prosím stránku znovu.",
-    "repair_failed": "Automatická oprava se nezdařila. Kontaktuj prosím podporu.",
-    "fix_action_button": "Opravit automaticky",
-    "fix_action_running": "Opravuji…",
-    "fix_error_heading": "Něco se nepovedlo při spuštění",
-    "fix_intro_prefix": "Oprava pro",
-    "fix_intro_suffix": "nová chatová relace pro tuto opravu byla spuštěna.",
-    "fix_still_fails": "Akce stále selhává",
-    "fix_not_confirmed": "Oprava zatím není potvrzena — tvůj původní vstup zůstává zachován.",
-    "fix_request_failed": "Žádost o opravu se nezdařila",
-    "fix_retry_hint": "Tvůj původní vstup zůstává zachován — můžeš to zkusit znovu.",
-    "close": "Zavřít",
-    "code_versions": "Verze",
-    "code_version_active": "Aktivní",
-    "code_tab_code": "Kód",
-    "code_tab_diff": "Změny",
-    "code_tab_diff_to": "Změny oproti",
-    "code_viewing_old_prefix": "Díváš se na",
-    "code_viewing_old_suffix": "— není to aktivní verze.",
-    "code_restore": "Obnovit tuto verzi",
-    "code_restore_confirm_title": "Obnovit verzi",
-    "code_restore_confirm_desc": "Aktuální kód bude nahrazen. Nic se neztratí — vznikne nová verze.",
-    "code_restore_failed": "Obnovení se nezdařilo",
-    "code_restored_to": "Obnoveno na verzi",
-    "code_origin_fix": "Auto-oprava",
-    "code_origin_chat": "Chat",
-    "code_origin_initial": "Vytvořeno",
-    "code_origin_revert": "Obnoveno",
-    "code_no_versions": "Žádné starší verze",
-    "code_lines": "řádků",
-    "code_out_tab": "Výstup",
-    "code_out_heading": "Testovací běh",
-    "code_out_history_badge": "Kód z historie — neobnoveno",
-    "code_out_inputs": "Vstupy",
-    "code_out_open": "Otevřít",
-    "code_out_no_output": "(žádný výstup)",
-    "code_chat_placeholder": "Zeptej se na kód…",
-    "code_back_to_tools": "Zpět na nástroje",
-    "code_switch_tool": "Přepnout akci",
-    "version_card_view_changes": "Zobrazit změny",
-    "version_card_undo": "Vrátit zpět",
-    "version_card_open_action": "Otevřít akci",
-    "chat_history_title": "Historie",
-    "chat_new": "Nový chat",
-    "run_done_badge": "Provedeno",
-    "run_id_copy": "Kopírovat RunID — při problémech uveď podpoře",
-    "dock_empty_hint": "Zeptej se na tuto akci — odpověď zná kód i verze.",
-    "dock_suggest_what": "Co tato akce dělá?",
-    "dock_suggest_explain": "Vysvětli mi kód",
-    "dock_ctx_other_prefix": "Tato konverzace patří k",
-    "dock_ctx_general": "Obecná konverzace bez vazby na akci",
-    "scope_menu_general_title": "Obecná konverzace",
-    "scope_general_short": "Obecné",
-    "scope_menu_action_desc": "Dotazy a změny k této akci",
-    "scope_menu_last_prefix": "Naposledy",
-    "run_result_details": "Podrobnosti",
-    "chat_new_for_tool": "Nová konverzace k této akci",
-    "chat_history_search": "Prohledat historii…",
-    "chat_history_empty": "Zatím žádné konverzace",
-    "chat_history_today": "Dnes",
-    "chat_history_yesterday": "Včera",
-    "chat_history_older": "Starší",
-    "chat_history_active": "Aktivní",
-    "chat_history_recent": "Naposledy",
-    "chat_history_filter_all": "Vše",
-    "chat_history_filter_tool": "Tato akce",
-    "chat_history_delete_title": "Smazat relaci?",
-    "chat_history_delete_desc": "Tato konverzace bude trvale smazána.",
-    "chat_history_delete_action": "Smazat",
-    "chat_resumed": "Relace obnovena",
-    "chat_messages_label": "zpráv",
-    "toast_network_title": "Chyba sítě",
-    "toast_network_desc": "Spojení se serverem bylo ztraceno.",
-    "toast_server_title": "Chyba serveru",
-    "toast_server_desc": "Zkus to prosím později znovu.",
-    "toast_bug_desc": "Byl zjištěn problém. Dashboard lze automaticky opravit.",
-    "update_available": "Dostupná aktualizace:",
-    "update_confirm_title": "Nainstalovat aktualizaci?",
-    "update_confirm_desc": "Aplikace bude aktualizována na nejnovější verzi. Zabere to několik minut.",
-    "update_confirm_action": "Aktualizovat",
-    "updating": "Aktualizuji…",
-    "update_verifying": "Ověřuji verzi…",
-    "update_verify_timeout": "Verzi se nepodařilo ověřit. Načti prosím stránku znovu.",
-    "rollback_label": "Zpět na",
-    "rollback_confirm_title": "Vrátit verzi?",
-    "rollback_confirm_desc": "Aplikace bude vrácena na vybranou verzi.",
-    "rollback_confirm_action": "Vrátit",
-    "rolling_back": "Vracím…",
-    "attachments_label": "Přílohy",
-    "attachments_empty": "Žádné přílohy",
-    "attachments_add": "Přidat přílohu",
-    "attachments_type": "Typ",
-    "attachments_label_field": "Označení",
-    "attachments_value": "Hodnota",
-    "attachments_value_file": "Soubor",
-    "attachments_value_note": "Poznámka",
-    "attachments_value_url": "URL",
-    "attachments_value_json": "JSON",
-    "attachments_choose_file": "Vybrat soubor",
-    "attachments_uploading": "Nahrávám…",
-    "attachments_loading": "Načítám přílohy…",
-    "attachments_save_record_first": "Nejdřív ulož záznam, pak lze přidávat přílohy.",
-    "attachments_invalid_json": "Neplatný JSON",
-    "attachments_open": "Otevřít",
-    "attachments_dz_hint": "Přetáhni soubor sem nebo klikni",
-    "attachments_dz_subhint": "PDF, obrázky, dokumenty",
-    "attachments_input_placeholder": "Poznámka, obrázek nebo URL",
-    "attachments_hint_enter": "↵ Enter pro přidání",
-    "attachments_add_dialog_title": "Přidat přílohu",
-    "attachments_or": "nebo",
-    "attachments_empty_cta": "Přidat přílohu — přetáhni soubor nebo klikni",
-    "attachments_drop_to_upload": "Pusť soubor pro nahrání",
-    "attachments_delete_title": "Smazat přílohu?",
-    "attachments_delete_desc": "Tato příloha bude nenávratně odstraněna.",
-    "attachments_rel_just_now": "právě teď",
-    "attachments_rel_min_prefix": "před ",
-    "attachments_rel_min": "min",
-    "attachments_rel_hr_prefix": "před ",
-    "attachments_rel_hr": "hod",
-    "attachments_rel_day_prefix": "před ",
-    "attachments_rel_day": "dny",
-    "fr_show_coords": "Zobrazit souřadnice",
-    "fr_hide_coords": "Skrýt souřadnice",
-    "fr_lat": "Zeměpisná šířka",
-    "fr_long": "Zeměpisná délka",
-    "fr_upload_file": "Nahrát soubor",
-    "fr_change": "Změnit",
-    "fr_remove": "Odebrat",
-    "fr_use_location": "Použít aktuální polohu",
-    "fr_photo_location": "Poloha převzata z fotky",
-    "fr_search_address": "Vyhledej a vyber adresu…",
-    "fr_record_url": "URL záznamu",
-    "create_in": "Nové v {entity}",
-    "pf_submit_text": "Odeslat",
-    "pf_submitting_text": "Odesílání...",
-    "pf_required_error_text": "Toto pole je povinné.",
-    "pf_unavailable_title": "Není dostupné",
-    "pf_unavailable_message": "Tento formulář není momentálně dostupný.",
-    "pf_error_generic_text": "Něco se pokazilo. Zkuste to prosím znovu.",
-    "pf_rate_limit_text": "Příliš mnoho pokusů — chvíli prosím počkejte a zkuste to znovu.",
-    "pf_another_entry_text": "Zadat další",
-    "pf_powered_by_text": "Powered by Klar",
-    "pf_address_placeholder": "Hledat adresu...",
-    "pf_remove_text": "Odebrat",
-    "pps_unavailable_message": "Tato stránka není momentálně dostupná.",
-    "ppn_heading": "Veřejné stránky",
-    "ppn_copy_label": "Kopírovat odkaz",
-    "ppn_manage_label": "Spravovat",
-    "ppa_title": "Veřejné stránky",
-    "ppa_subtitle": "Formuláře a stránky, které můžeš sdílet odkazem — návštěvníci nepotřebují účet.",
-    "ppa_empty": "Zatím žádné stránky. Napiš do chatu, jakou veřejnou stránku potřebuješ — vytvoří se a objeví se tady.",
-    "ppa_origin_auto": "Návrh",
-    "ppa_origin_user": "Vlastní",
-    "ppa_origin_agent": "Stránka od AI",
-    "ppa_status_published": "Veřejná",
-    "ppa_status_draft": "Koncept",
-    "ppa_publish": "Zveřejnit",
-    "ppa_pause": "Pozastavit",
-    "ppa_open": "Otevřít",
-    "ppa_copy": "Kopírovat odkaz",
-    "ppa_copied": "Zkopírováno!",
-    "ppa_confirm_title": "Opravdu zveřejnit?",
-    "ppa_can_do": "Kdokoli s odkazem může:",
-    "ppa_cannot_do": "Nikdo nemůže:",
-    "ppa_can_submit": "odesílat záznamy",
-    "ppa_can_view": "vidět tato data",
-    "ppa_cannot_line": "vidět ani měnit existující data.",
-    "ppa_cancel": "Zrušit",
-    "ppa_confirm_publish": "Zveřejnit",
-    "ppa_fields": "Pole",
-    "ppa_fields_title": "Výběr polí",
-    "ppa_fields_intro": "Vyber, která pole se zobrazí ve veřejném formuláři.",
-    "ppa_field_required": "Povinné pole — vždy obsaženo",
-    "ppa_field_file": "Nahrávání souborů není veřejně podporováno",
-    "ppa_field_exposes": "Zobrazí návštěvníkům seznam propojených záznamů",
-    "ppa_save": "Uložit",
-    "load_error_title": "Chyba při načítání",
-    "retry": "Zkusit znovu",
-    "data_load_failed": "Data se nepodařilo načíst",
-    "wizard_back_to_dashboard": "Zpět na dashboard",
-    "step_create_new": "Vytvořit nový",
-    "budget_none": "Rozpočet není nastavený",
-    "budget_booked": "Vyčerpáno",
-    "budget_of": "z",
-    "budget_remaining": "Zbývá",
-    "budget_over": "Rozpočet překročen!",
-    "combo_search": "Hledat…",
-    "combo_no_match": "Žádný výsledek",
-    "combo_clear_selection": "Odebrat výběr",
-    "combo_clear_search": "Vymazat hledání",
-    "combo_create_new": "Vytvořit nový záznam",
-    "combo_create_named": "Vytvořit „{name}“",
-    "combo_create_labeled": "Vytvořit {label}",
-    "combo_create_prefill_hint": "Použije zadaný text jako předvolbu",
-    "combo_create_inline_hint": "Zadej to přímo v dialogu",
-    "combo_add_more": "+ Přidat",
-    "combo_remove_item": "Odebrat {label}",
-    "date_hint_date": "dd.mm.rrrr",
-    "date_hint_datetime": "dd.mm.rrrr, hh:mm",
-    "date_pick_date": "Vyber datum",
-    "date_pick_datetime": "Vyber datum a čas",
-    "date_clear": "Vymazat datum",
-    "date_hours": "Hodiny",
-    "date_minutes": "Minuty",
-    "date_now": "Teď",
-    "date_today": "Dnes",
-    "date_reset": "Vymazat",
-    "address_search": "Hledat adresu…",
-    "address_none": "Žádná adresa nenalezena",
-    "sat_empty": "Zatím žádné {title}.",
-    "sat_add": "Přidat {title}",
-    "intents_heading": "Postupy",
-    "intents_pending": "Vytvářejí se …",
-    "placeholder_page_desc": "Tady si postav vlastní zobrazení pro {entity}.",
-    "placeholder_page_box": "Zástupný obsah — tady postav zobrazení pro {entity}",
-    "tools_label": "Nástroje",
-    "tools_subtitle_available": "k dispozici",
-    "tools_empty_title": "Zatím žádné nástroje",
-    "tools_empty_desc": "Napiš v chatu, co chceš zautomatizovat — z toho vznikne tvůj první nástroj.",
-    "tools_empty_cta": "Vytvořit v chatu",
-    "tools_file_singular": "soubor",
-    "tools_file_plural": "soubory",
-    "chatw_title": "Asistent",
-    "chatw_placeholder": "Zadej dotaz nebo nahraj obrázek...",
-    "chatw_thinking": "Přemýšlím...",
-    "chatw_analyze_image": "Analyzovat obrázek",
-    "chatw_attach_file": "Připojit soubor",
-    "chatw_fullscreen": "Na celou obrazovku",
-    "chatw_exit_fullscreen": "Zmenšit",
-    "ctx_error_text": "Spuštění selhalo",
-    "ctx_action_label": "Akce",
-    "acd_test_version": "Otestovat v{v}",
-    "vc_loading_versions": "Načítám verze...",
-    "vc_no_previous_versions": "Žádné starší verze",
-    "vc_error_text": "Došlo k chybě",
-    "vc_label_initial": "První verze",
-    "vc_label_update": "Aktualizace scaffoldu",
-    "vc_label_agent": "Úprava AI",
-    "vc_label_main_branch": "Hlavní linie",
-    "vc_label_alternate_direction": "Alternativní směr",
-    "vc_version_singular": "verze",
-    "vc_version_plural": "verze",
-    "polish_greeting_morning": "Dobré ráno!",
-    "polish_greeting_day": "Dobrý den!",
-    "polish_greeting_evening": "Dobrý večer!",
-    "polish_undo": "Zpět",
-    "attachments_upload_failed": "Soubor se nepodařilo nahrát.",
-    "scan_error": "Skenování selhalo",
-    "scan_header_sub": "Rozumí fotkám, dokumentům i textu a všechno za tebe vyplní",
-    "scan_analyzing": "AI analyzuje...",
-    "scan_analyzing_sub": "Pole se vyplní automaticky",
-    "scan_success": "Pole vyplněna!",
-    "scan_success_sub": "Zkontroluj hodnoty a případně je uprav",
-    "scan_upload": "Přetáhni sem fotku nebo dokument, nebo vyber soubor",
-    "scan_camera_btn": "Kamera",
-    "scan_file_btn": "Vybrat fotku",
-    "scan_doc_btn": "Dokument",
-    "useinfo_label": "AI asistent smí použít i informace o mé osobě",
-    "useinfo_more": "více informací",
-    "useinfo_loading": "Načítám...",
-    "useinfo_error": "Profil se nepodařilo načíst",
-    "profile_preamble": "AI může využít tyto informace o tobě:",
-    "scan_text_placeholder": "Napiš nebo vlož text, např. poznámky, e-maily, popisy...",
-    "scan_text_analyze": "Analyzovat",
-    "smart_fill": "Vyplnit s AI",
-    "missing_required": "Vyplň prosím označená povinná pole.",
-    "paste": "Vložit",
-    "bulk_edit_title": "Upravit pole u vybraných záznamů",
-    "details": "Podrobnosti",
-    "relations": "Propojeno",
-    "not_found": "Záznam nenalezen",
-    "required_hint": "Povinné pole"
   }
 };
 
 // Structure labels (app names, field labels, lookup option labels):
 type AppLabels = {
   name: string;
+  app_id?: string;
   fields: Record<string, string>;
   lookups: Record<string, Record<string, string>>;
 };
 type LabelBundle = { appgroup: string; apps: Record<string, AppLabels> };
-export const LABELS: Record<Locale, LabelBundle> = {
+export const LABELS: Record<CoreLocale, LabelBundle> = {
   "de": {
     "appgroup": "Elektro-Werkzeugmanagement",
     "apps": {
       "handwerker": {
         "name": "Handwerker",
+        "app_id": "6a796265ef74b1aaf76e20d0",
         "fields": {
           "vorname": "Vorname",
           "nachname": "Nachname",
@@ -1197,6 +840,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
       },
       "werkzeuge": {
         "name": "Werkzeuge",
+        "app_id": "6a79626b47fc8732b877c8c3",
         "fields": {
           "werkzeugname": "Werkzeugname",
           "inventarnummer": "Inventarnummer",
@@ -1231,6 +875,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
       },
       "ausleihe": {
         "name": "Ausleihe",
+        "app_id": "6a79626ce3b636c8e29270c0",
         "fields": {
           "werkzeug": "Werkzeug",
           "handwerker": "Handwerker",
@@ -1249,6 +894,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
       },
       "wartung_reparatur": {
         "name": "Wartung & Reparatur",
+        "app_id": "6a79626c62bacd6c2a0a3dc1",
         "fields": {
           "werkzeug_wartung": "Werkzeug",
           "vorgangsart": "Vorgangsart",
@@ -1282,6 +928,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
     "apps": {
       "handwerker": {
         "name": "Craftsmen",
+        "app_id": "6a796265ef74b1aaf76e20d0",
         "fields": {
           "vorname": "First Name",
           "nachname": "Last Name",
@@ -1296,7 +943,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
         "lookups": {
           "qualifikation": {
             "elektriker": "Electrician",
-            "meister": "Master",
+            "meister": "Master Craftsman",
             "geselle": "Journeyman",
             "auszubildender": "Apprentice",
             "techniker": "Technician"
@@ -1309,6 +956,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
       },
       "werkzeuge": {
         "name": "Tools",
+        "app_id": "6a79626b47fc8732b877c8c3",
         "fields": {
           "werkzeugname": "Tool Name",
           "inventarnummer": "Inventory Number",
@@ -1319,7 +967,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
           "anschaffungsdatum": "Purchase Date",
           "standort": "Location / Storage Location",
           "zustand": "Current Condition",
-          "foto": "Photo of Tool",
+          "foto": "Tool Photo",
           "bemerkungen_werkzeug": "Remarks"
         },
         "lookups": {
@@ -1343,6 +991,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
       },
       "ausleihe": {
         "name": "Lending",
+        "app_id": "6a79626ce3b636c8e29270c0",
         "fields": {
           "werkzeug": "Tool",
           "handwerker": "Craftsmen",
@@ -1361,6 +1010,7 @@ export const LABELS: Record<Locale, LabelBundle> = {
       },
       "wartung_reparatur": {
         "name": "Maintenance & Repair",
+        "app_id": "6a79626c62bacd6c2a0a3dc1",
         "fields": {
           "werkzeug_wartung": "Tool",
           "vorgangsart": "Process Type",
@@ -1388,154 +1038,78 @@ export const LABELS: Record<Locale, LabelBundle> = {
         }
       }
     }
-  },
-  "cs": {
-    "appgroup": "Správa elektro-nářadí",
-    "apps": {
-      "handwerker": {
-        "name": "Řemeslníci",
-        "fields": {
-          "vorname": "Jméno",
-          "nachname": "Příjmení",
-          "personalnummer": "Osobní číslo",
-          "telefon": "Telefonní číslo",
-          "email": "E-mailová adresa",
-          "abteilung": "Oddělení",
-          "qualifikation": "Kvalifikace / Role",
-          "status": "Stav",
-          "bemerkungen": "Poznámky"
-        },
-        "lookups": {
-          "qualifikation": {
-            "elektriker": "Elektrikář",
-            "meister": "Mistr",
-            "geselle": "Tovaryš",
-            "auszubildender": "Učeň",
-            "techniker": "Technik"
-          },
-          "status": {
-            "aktiv": "Aktivní",
-            "inaktiv": "Neaktivní"
-          }
-        }
-      },
-      "werkzeuge": {
-        "name": "Nářadí",
-        "fields": {
-          "werkzeugname": "Název nářadí",
-          "inventarnummer": "Inventární číslo",
-          "kategorie": "Kategorie",
-          "hersteller": "Výrobce",
-          "modell": "Model",
-          "seriennummer": "Sériové číslo",
-          "anschaffungsdatum": "Datum pořízení",
-          "standort": "Umístění / Sklad",
-          "zustand": "Aktuální stav",
-          "foto": "Foto nářadí",
-          "bemerkungen_werkzeug": "Poznámky"
-        },
-        "lookups": {
-          "kategorie": {
-            "messgeraet": "Měřicí přístroj",
-            "handwerkzeug": "Ruční nářadí",
-            "elektrowerkzeug": "Elektro-nářadí",
-            "pruefgeraet": "Zkušební přístroj",
-            "sicherheitsausruestung": "Bezpečnostní vybavení",
-            "sonstiges": "Ostatní"
-          },
-          "zustand": {
-            "verfuegbar": "Dostupné",
-            "ausgeliehen": "Zapůjčeno",
-            "in_reparatur": "V opravě",
-            "in_wartung": "V údržbě",
-            "defekt": "Vadné",
-            "ausgemustert": "Vyřazeno"
-          }
-        }
-      },
-      "ausleihe": {
-        "name": "Výpůjčky",
-        "fields": {
-          "werkzeug": "Nářadí",
-          "handwerker": "Řemeslníci",
-          "ausleihdatum": "Datum a čas výpůjčky",
-          "geplantes_rueckgabedatum": "Plánované datum a čas vrácení",
-          "tatsaechliches_rueckgabedatum": "Skutečné datum a čas vrácení",
-          "status_ausleihe": "Stav",
-          "bemerkungen_ausleihe": "Poznámky"
-        },
-        "lookups": {
-          "status_ausleihe": {
-            "ausgeliehen": "Zapůjčeno",
-            "zurueckgegeben": "Vráceno"
-          }
-        }
-      },
-      "wartung_reparatur": {
-        "name": "Údržba & Opravy",
-        "fields": {
-          "werkzeug_wartung": "Nářadí",
-          "vorgangsart": "Typ záznamu",
-          "verantwortlicher": "Odpovědný řemeslník",
-          "startdatum": "Datum zahájení",
-          "geplantes_enddatum": "Plánované datum ukončení",
-          "tatsaechliches_enddatum": "Skutečné datum ukončení",
-          "beschreibung": "Popis problému / opatření",
-          "status_wartung": "Stav",
-          "kosten": "Náklady (€)",
-          "bemerkungen_wartung": "Poznámky",
-          "dokument": "Dokument / Zpráva"
-        },
-        "lookups": {
-          "vorgangsart": {
-            "wartung": "Údržba",
-            "reparatur": "Oprava"
-          },
-          "status_wartung": {
-            "geplant": "Naplánováno",
-            "in_bearbeitung": "Probíhá",
-            "abgeschlossen": "Dokončeno",
-            "abgebrochen": "Zrušeno"
-          }
-        }
-      }
-    }
   }
 };
 
-// ── Locale state ───────────────────────────────────────────────────
-function readStored(): Locale | null {
+// ── Overlay locales (added post-deploy, no rebuild) ────────────────
+// Contract: locales/{lang}.json next to the bundle —
+//   { "v": 1, "lang": "ru", "ui": {catalogKey: text},
+//     "labels": {appgroup, apps:{key:{name,app_id,fields,lookups}}},
+//     "pages": {enSourceText: translatedText} }
+// Sections are optional; unknown fields are ignored (tolerant consumer).
+type Overlay = {
+  v?: number;
+  ui?: Record<string, string>;
+  labels?: Partial<LabelBundle>;
+  pages?: Record<string, string>;
+};
+const overlays: Record<string, Overlay | null | undefined> = {};
+
+function isCore(l: string): l is CoreLocale {
+  return (CORE_LOCALES as string[]).includes(l);
+}
+
+async function ensureOverlay(lang: string): Promise<Overlay | null> {
+  if (overlays[lang] !== undefined) return overlays[lang] ?? null;
   try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    return (LOCALES as string[]).includes(v ?? '') ? (v as Locale) : null;
+    const r = await fetch(`./locales/${encodeURIComponent(lang)}.json`, { cache: 'no-cache' });
+    overlays[lang] = r.ok ? ((await r.json()) as Overlay) : null;
+  } catch {
+    overlays[lang] = null;
+  }
+  return overlays[lang] ?? null;
+}
+
+function overlayFor(l: string): Overlay | null {
+  return overlays[l] ?? null;
+}
+
+// ── Locale state ───────────────────────────────────────────────────
+function normalizeLang(raw: string | null | undefined): string | null {
+  const lang = (raw ?? '').split(/[-_]/)[0].toLowerCase();
+  return /^[a-z]{2,3}$/.test(lang) ? lang : null;
+}
+
+function readStored(): string | null {
+  try {
+    return normalizeLang(localStorage.getItem(STORAGE_KEY));
   } catch {
     return null;
   }
 }
 
-function htmlLang(): Locale | null {
-  const raw = (document.documentElement.getAttribute('lang') ?? '')
-    .split(/[-_]/)[0]
-    .toLowerCase();
-  return (LOCALES as string[]).includes(raw) ? (raw as Locale) : null;
+function htmlLang(): string | null {
+  return normalizeLang(document.documentElement.getAttribute('lang'));
 }
 
-// The PLATFORM header owns the language switcher. Its contract is
-// <html lang> (the la-widget library resolves and observes the same
-// attribute): adopt it at load when present, keep it in sync otherwise.
+// The PLATFORM header owns the language switcher for the core languages. Its
+// contract is <html lang> (the la-widget library resolves and observes the
+// same attribute): adopt it at load when present, keep it in sync otherwise.
 export let locale: Locale = htmlLang() ?? readStored() ?? BUILD_LOCALE;
+// Baked chrome (widget dictionaries) exists only in the core languages —
+// non-core locales read their chrome via the overlay/en fallback chains.
+export let coreLocale: CoreLocale = isCore(locale) ? locale : 'en';
 document.documentElement.lang = locale;
-
-// Follow platform-initiated switches LIVE — same MutationObserver contract
-// the la-widgets use. applyLocale is a no-op for our own writes (same value).
-if (typeof MutationObserver !== 'undefined') {
-  new MutationObserver(() => {
-    const next = htmlLang();
-    if (next && next !== locale) {
-      try { localStorage.setItem(STORAGE_KEY, next); } catch { /* private mode */ }
-      applyLocale(next);
+if (!isCore(locale)) {
+  // Overlay locale from a previous session: load it, then re-render; if it
+  // is gone, fall back to the build locale and clean the stale cache.
+  void ensureOverlay(locale).then((ov) => {
+    if (ov) listeners.forEach((fn) => fn());
+    else if (!isCore(locale)) {
+      try { localStorage.setItem(STORAGE_KEY, BUILD_LOCALE); } catch { /* private mode */ }
+      applyLocale(BUILD_LOCALE);
     }
-  }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  });
 }
 
 const listeners = new Set<() => void>();
@@ -1548,21 +1122,53 @@ export function onLocaleChange(fn: () => void): () => void {
 function applyLocale(next: Locale) {
   if (next === locale) return;
   locale = next;
+  coreLocale = isCore(next) ? next : 'en';
   document.documentElement.lang = next;
   listeners.forEach((fn) => fn());
 }
 
-export function setLocale(next: Locale) {
-  try { localStorage.setItem(STORAGE_KEY, next); } catch { /* private mode */ }
+// Accept a locale request: core applies immediately, overlay locales apply
+// once their file is confirmed to exist (an unknown language is ignored —
+// it "exists" only after the service uploaded its overlay).
+async function requestLocale(next: string): Promise<boolean> {
+  if (isCore(next)) {
+    applyLocale(next);
+    return true;
+  }
+  const ov = await ensureOverlay(next);
+  if (!ov) return false;
   applyLocale(next);
-  void persistProfileLanguage(next);
+  return true;
+}
+
+export function setLocale(next: Locale) {
+  void (async () => {
+    if (!(await requestLocale(next))) return;
+    try { localStorage.setItem(STORAGE_KEY, next); } catch { /* private mode */ }
+    void persistProfileLanguage(next);
+  })();
+}
+
+// Follow platform-initiated switches LIVE — same MutationObserver contract
+// the la-widgets use. applyLocale is a no-op for our own writes (same value).
+if (typeof MutationObserver !== 'undefined') {
+  new MutationObserver(() => {
+    const next = htmlLang();
+    if (next && next !== locale) {
+      void (async () => {
+        if (await requestLocale(next)) {
+          try { localStorage.setItem(STORAGE_KEY, next); } catch { /* private mode */ }
+        }
+      })();
+    }
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 }
 
 // The LA profile is the language's source of truth AT REST: adopt it once
 // per page load (LocaleGate calls this on mount). It must NOT re-run on the
 // remount a language switch causes — that reverted every header-switcher
 // change back to the profile within a second (live-proven). Persisting a
-// switch into the profile is the platform header's job.
+// switch into the profile is the switcher's job.
 let profileSyncDone = false;
 export async function syncProfileLocale(): Promise<void> {
   if (profileSyncDone) return;
@@ -1572,12 +1178,13 @@ export async function syncProfileLocale(): Promise<void> {
     const r = await fetch(`${LA_API_URL}/user`, { credentials: 'include' });
     if (!r.ok) return;
     const raw = (await r.json()) as { lang?: unknown };
-    const lang = String(raw?.lang ?? '').slice(0, 2).toLowerCase();
-    if (!(LOCALES as string[]).includes(lang)) return;
+    const lang = normalizeLang(typeof raw?.lang === 'string' ? raw.lang : null);
+    if (!lang) return;
     // A switch that happened while we fetched wins over the profile.
     if (locale !== before) return;
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch { /* private mode */ }
-    applyLocale(lang as Locale);
+    if (await requestLocale(lang)) {
+      try { localStorage.setItem(STORAGE_KEY, lang); } catch { /* private mode */ }
+    }
   } catch { /* offline/anonymous — keep the current locale */ }
 }
 
@@ -1600,50 +1207,80 @@ async function persistProfileLanguage(next: Locale): Promise<void> {
 // persistence — a public visitor must not pin the operator's dashboard
 // locale). Call once when mounting a public route.
 export function initPublicLocale() {
-  const nav = (navigator.language || '').toLowerCase();
-  const match = LOCALES.find((l) => nav === l || nav.startsWith(l + '-'));
-  locale = match ?? BUILD_LOCALE;
+  const nav = normalizeLang(typeof navigator !== 'undefined' ? navigator.language : null);
+  if (nav && isCore(nav)) {
+    locale = nav;
+    coreLocale = nav;
+  } else {
+    locale = BUILD_LOCALE;
+    coreLocale = BUILD_LOCALE;
+  }
   document.documentElement.lang = locale;
 }
 
 // ── Text lookup ────────────────────────────────────────────────────
-export function t(key: string, params?: Record<string, string | number>): string {
-  const table = UI_CATALOG[locale] ?? UI_CATALOG.en;
-  let text = table[key] ?? UI_CATALOG.en[key] ?? key;
-  if (params) {
-    for (const [k, v] of Object.entries(params)) {
-      text = text.split(`{${k}}`).join(String(v));
-    }
+// Accepts optional values because makeT does — `String(undefined)` renders
+// exactly what `${undefined}` in a template literal rendered, so the
+// mechanical rewrite stays faithful.
+function interpolate(text: string, params?: Record<string, string | number | null | undefined>): string {
+  if (!params) return text;
+  let out = text;
+  for (const [k, v] of Object.entries(params)) {
+    out = out.split(`{${k}}`).join(String(v));
   }
-  return text;
+  return out;
+}
+
+function uiText(key: string): string | undefined {
+  if (isCore(locale)) return UI_CATALOG[locale][key];
+  return overlayFor(locale)?.ui?.[key] ?? UI_CATALOG.en[key];
+}
+
+export function t(key: string, params?: Record<string, string | number>): string {
+  return interpolate(uiText(key) ?? UI_CATALOG.en[key] ?? key, params);
+}
+
+// Plural-aware chrome text: define key_one/key_few/key_many/key_other in the
+// catalog (subset ok; key_other is the required base form). `n` is always
+// available as {n} in the text.
+export function tp(key: string, n: number, params?: Record<string, string | number>): string {
+  let category = 'other';
+  try {
+    category = new Intl.PluralRules(localeTag()).select(n);
+  } catch { /* very old runtime — 'other' */ }
+  const text = uiText(`${key}_${category}`) ?? uiText(`${key}_other`) ?? uiText(key) ?? key;
+  return interpolate(text, { n, ...(params ?? {}) });
 }
 
 // Page-local text for agent-written pages (overview, intent pages, bespoke
-// public pages): define EVERY locale once, read at render time. The returned
-// function behaves like t() (current locale, {param} interpolation, fallback
-// chain locale → build locale → en → key).
-//
-//   const tt = makeT({
-//     de: { title: 'Auslastung', hint: '{n} offene Aufträge' },
-//     en: { title: 'Utilization', hint: '{n} open orders' },
-//     cs: { title: 'Vytížení', hint: '{n} otevřených zakázek' },
-//   });
-//   ... <h2>{tt('title')}</h2>
-export function makeT<K extends string>(table: Record<Locale, Record<K, string>>) {
-  return (key: K, params?: Record<string, string | number>): string => {
-    let text: string =
-      table[locale]?.[key] ?? table[BUILD_LOCALE]?.[key] ?? table.en?.[key] ?? key;
-    if (params) {
-      for (const [k, v] of Object.entries(params)) {
-        text = text.split(`{${k}}`).join(String(v));
-      }
+// public pages): define the CORE locales once, read at render time. The
+// returned function behaves like t() (current locale, {param} interpolation).
+// Overlay locales resolve via the en source text — no code change needed
+// when a language is added post-deploy.
+export function makeT<K extends string>(
+  table: Record<CoreLocale, Record<K, string>> & Partial<Record<string, Record<K, string>>>
+) {
+  // Optional params are accepted on purpose: the mechanical migration turns
+  // `${r.fields.gast_vorname}` into `p0: r.fields.gast_vorname`, and a record
+  // field is `string | undefined`. A template literal took that happily, so
+  // rejecting it here made a faithful rewrite fail tsc (live: TS2322 in a
+  // Restaurant dashboard). interpolate() renders exactly what the template
+  // literal did.
+  return (key: K, params?: Record<string, string | number | null | undefined>): string => {
+    let text: string | undefined = table[locale]?.[key];
+    if (text === undefined && !isCore(locale)) {
+      const source = table.en?.[key];
+      text = source !== undefined ? overlayFor(locale)?.pages?.[source] ?? source : undefined;
     }
-    return text;
+    text = text ?? table[BUILD_LOCALE]?.[key] ?? table.en?.[key] ?? key;
+    return interpolate(text, params);
   };
 }
 
-function bundle(): LabelBundle {
-  return LABELS[locale] ?? LABELS[BUILD_LOCALE];
+// ── Structure labels ───────────────────────────────────────────────
+function bundle(): Partial<LabelBundle> {
+  if (isCore(locale)) return LABELS[locale];
+  return overlayFor(locale)?.labels ?? LABELS[BUILD_LOCALE];
 }
 
 export function appgroupLabel(): string {
@@ -1651,12 +1288,12 @@ export function appgroupLabel(): string {
 }
 
 export function appLabel(app: string): string {
-  return bundle().apps[app]?.name ?? LABELS[BUILD_LOCALE].apps[app]?.name ?? app;
+  return bundle().apps?.[app]?.name ?? LABELS[BUILD_LOCALE].apps[app]?.name ?? app;
 }
 
 export function fieldLabel(app: string, field: string): string {
   return (
-    bundle().apps[app]?.fields?.[field] ??
+    bundle().apps?.[app]?.fields?.[field] ??
     LABELS[BUILD_LOCALE].apps[app]?.fields?.[field] ??
     field
   );
@@ -1666,7 +1303,7 @@ export function fieldLabel(app: string, field: string): string {
 export function fieldLabels(app: string): Record<string, string> {
   return {
     ...LABELS[BUILD_LOCALE].apps[app]?.fields,
-    ...bundle().apps[app]?.fields,
+    ...bundle().apps?.[app]?.fields,
   };
 }
 
@@ -1675,20 +1312,57 @@ export function fieldLabels(app: string): Record<string, string> {
 export function lookupLabel(app: string, field: string, key: string | null | undefined): string | null {
   if (key == null) return null;
   return (
-    bundle().apps[app]?.lookups?.[field]?.[key] ??
+    bundle().apps?.[app]?.lookups?.[field]?.[key] ??
     LABELS[BUILD_LOCALE].apps[app]?.lookups?.[field]?.[key] ??
     null
   );
 }
 
-// ── Locale-dependent formatting ────────────────────────────────────
-export function localeTag(): string {
-  return locale === 'de' ? 'de-DE' : locale === 'cs' ? 'cs-CZ' : 'en-US';
+// Public pages know their target app only by app_id (their runtime config
+// carries no app key) — resolve via the id → key map and fall back to the
+// config's stored label when the id is unknown (pages of apps that predate
+// the bundle, or foreign apps).
+const APP_KEY_BY_ID: Record<string, string> = {};
+for (const [appKey, entry] of Object.entries(LABELS[BUILD_LOCALE].apps)) {
+  if (entry.app_id) APP_KEY_BY_ID[entry.app_id] = appKey;
 }
 
-// date-fns needs an explicit locale object for non-English month/weekday names.
+export function fieldLabelByAppId(appId: string | null | undefined, field: string): string | null {
+  const appKey = appId ? APP_KEY_BY_ID[appId] : undefined;
+  if (!appKey) return null;
+  return (
+    bundle().apps?.[appKey]?.fields?.[field] ??
+    LABELS[BUILD_LOCALE].apps[appKey]?.fields?.[field] ??
+    null
+  );
+}
+
+export function lookupLabelByAppId(appId: string | null | undefined, field: string, key: string | null | undefined): string | null {
+  const appKey = appId ? APP_KEY_BY_ID[appId] : undefined;
+  return appKey ? lookupLabel(appKey, field, key) : null;
+}
+
+// ── Locale-dependent formatting ────────────────────────────────────
+export function localeName(l: Locale): string {
+  if (LOCALE_NAMES[l]) return LOCALE_NAMES[l];
+  try {
+    return new Intl.DisplayNames([l], { type: 'language' }).of(l) ?? l;
+  } catch {
+    return l;
+  }
+}
+
+export function localeTag(): string {
+  if (locale === 'de') return 'de-DE';
+  if (locale === 'en') return 'en-US';
+  return locale; // bare BCP-47 language code — Intl accepts it
+}
+
+// date-fns needs an explicit locale object for non-English month/weekday
+// names. Overlay locales fall back to the en default (honest degradation —
+// the date-fns locale data is not shippable via JSON overlay).
 export function dateFnsLocale(): DateFnsLocale | undefined {
-  return locale === 'de' ? dfDe : locale === 'cs' ? dfCs : undefined;
+  return locale === 'de' ? dfDe : undefined;
 }
 
 export function dateFormat(): string {

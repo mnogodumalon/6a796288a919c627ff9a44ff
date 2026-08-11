@@ -210,7 +210,7 @@ import { Button } from '@/components/ui/button';
 // COPIED from GeoMapPicker (a form-field picker, not a family widget) below —
 // not imported — because the picker is not part of the widget family.
 import { TONE_DOT, type WidgetTone } from './primitives';
-import { locale as i18nLocale, type Locale } from '@/i18n';
+import { coreLocale as i18nLocale, type CoreLocale as Locale } from '@/i18n';
 
 // The widget's OWN chrome strings — indexed at RENDER time (`MW[i18nLocale]`),
 // never hoisted into a module constant.
@@ -230,19 +230,12 @@ const MW: Record<Locale, {
     errorTitle: 'Map failed to load', retry: 'Try again',
     retryHint: 'Please try again.',
   },
-  cs: {
-    map: 'Mapa', tileError: 'Mapové dlaždice se nepodařilo načíst.',
-    withoutLocation: 'bez platného místa',
-    errorTitle: 'Mapu se nepodařilo načíst', retry: 'Zkusit znovu',
-    retryHint: 'Zkus to prosím znovu.',
-  },
 };
 
 // Records are a COUNTED noun: German has two forms, Czech three (1 záznam,
 // 2–4 záznamy, 5+ záznamů) — so the plural rule lives in a function.
 function recordsLabel(n: number, l: Locale): string {
   if (l === 'en') return `${n} ${n === 1 ? 'record' : 'records'}`;
-  if (l === 'cs') return `${n} ${n === 1 ? 'záznam' : n < 5 ? 'záznamy' : 'záznamů'}`;
   return `${n} ${n === 1 ? 'Datensatz' : 'Datensätze'}`;
 }
 
@@ -582,7 +575,6 @@ export const MAP_NAV_PROVIDERS = [
 const NAV_LABELS: Record<Locale, Partial<Record<(typeof MAP_NAV_PROVIDERS)[number]['id'], string>>> = {
   de: {},
   en: { apple: 'Apple Maps' },
-  cs: { apple: 'Apple Mapy' },
 };
 
 /** Directions URL to a coordinate. `provider` defaults to Google Maps (the

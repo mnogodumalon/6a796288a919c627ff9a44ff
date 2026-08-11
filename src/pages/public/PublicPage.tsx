@@ -5,8 +5,6 @@ import { PUBLIC_PAGES } from '@/pages/public/registry';
 import { loadPublicPagesConfig, type PublicPagesConfig } from '@/lib/publicClient';
 import { initPublicLocale } from '@/i18n';
 
-const APP_TITLE = 'Elektro-Werkzeugmanagement';
-
 // One config read per SPA session is enough for tab titles — the page
 // components below do their own fresh read for the actual content.
 let configForTitle: Promise<PublicPagesConfig | null> | undefined;
@@ -16,6 +14,8 @@ let configForTitle: Promise<PublicPagesConfig | null> | undefined;
 // takes over. Both read the same runtime config, so upgrading a page never
 // changes its shared link.
 export default function PublicPage() {
+  const APP_TITLE = 'Elektro-Werkzeugmanagement';
+
   // Anonymous visitors have no dashboard profile and no stored preference —
   // public chrome follows the BROWSER language. Synchronous and first in the
   // body, so every localized string below (and in every child page) already

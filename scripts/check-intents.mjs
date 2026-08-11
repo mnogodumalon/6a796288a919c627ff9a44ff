@@ -123,20 +123,32 @@ for (const page of pages) {
   const file = join(DIR, `${page}.tsx`);
   const src = readFileSync(file, 'utf8');
   const lines = src.split('\n');
-  const jsxText = />[^<>{}\n]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^<>{}\n]*</;
+  // The closing `<` must start a tag (`</` or `<Tag`). Without that a
+  // comparison pair reads as JSX text: `x > 0 && (a.fields.b ?? 0) < y`
+  // matched, and the fixer dutifully annotated pure logic (live-seen).
+  // The `>` must close a TAG. Without the lookbehind the `>` of an arrow
+  // function matched, so `(key: K) => (e: React.ChangeEvent<HTMLInputElement
+  // | HTMLTextAreaElement>) =>` was reported as hardcoded UI text and cost a
+  // run a gate-red plus an /* i18n-exempt */ on pure type syntax.
+  const jsxText = /(?<![=-])>[^<>{}\n]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^<>{}\n]*<[/A-Za-z]/;
   const attrText = /\b(?:title|placeholder|label|aria-label|alt|emptyLabel|emptyText)=(?:\{\s*)?(?:"[^"{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^"{}]*"|'[^'{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^'{}]*')/;
   const objText = /\b(?:title|label|name|emptyLabel|emptyText|hint|description)\s*:\s*(?:"[^"{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^"{}]*"|'[^'{}]*[A-Za-zÄÖÜäöüßÀ-ž]{3,}[^'{}]*')/;
+  // A sentence computed in a helper and rendered as {subtitle} is in no
+  // JSX text, no attribute and no allowlisted prop — it stayed German
+  // while the page around it turned English. One word may be a status
+  // key the API reads back ('Aktiv'), so only whole phrases count.
+  const returnText = /\breturn\s+(?:"(?=[^"]*[A-Za-zÄÖÜäöüßÀ-ž]{3,})(?=[^"]*\s)[^"{}]*"|'(?=[^']*[A-Za-zÄÖÜäöüßÀ-ž]{3,})(?=[^']*\s)[^'{}]*')/;
   const hits = [];
   for (let i = 0; i < lines.length && hits.length < 8; i++) {
     const l = lines[i];
     if (l.includes('i18n-exempt')) continue;
     const trimmed = l.trim();
     if (trimmed.startsWith('//') || trimmed.startsWith('*') || trimmed.startsWith('/*')) continue;
-    if (jsxText.test(l) || attrText.test(l) || objText.test(l)) hits.push(`    line ${i + 1}: ${l}`);
+    if (jsxText.test(l) || attrText.test(l) || objText.test(l) || returnText.test(l)) hits.push(`    line ${i + 1}: ${l}`);
   }
   if (hits.length) {
     errors.push(
-      `${file}: hardcoded UI text — define your strings ONCE via makeT from '@/i18n' ({ de, en, cs }) and render {tt('key')}; ` +
+      `${file}: hardcoded UI text — define your strings ONCE via makeT from '@/i18n' ({ de, en }) and render {tt('key')}; ` +
       `brand names/codes take /* i18n-exempt */ on the line.\n` + hits.join('\n')
     );
   }

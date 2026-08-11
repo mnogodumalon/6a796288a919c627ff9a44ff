@@ -126,10 +126,10 @@
 import { useMemo, useState, type ReactNode, type ComponentType } from 'react';
 import { IconAlertCircle, IconRefresh } from '@tabler/icons-react';
 import { addDays, addMonths, addWeeks, differenceInCalendarDays, differenceInCalendarMonths, differenceInCalendarISOWeeks, endOfISOWeek, endOfMonth, format, isValid, parseISO, startOfDay, startOfISOWeek, startOfMonth } from 'date-fns';
-import { de as dfnsDe, cs as dfnsCs } from 'date-fns/locale';
+import { de as dfnsDe } from 'date-fns/locale';
 import { formatCurrency } from '@/lib/formatters';
 import { TONE_TEXT, labelOf, type WidgetTone } from './primitives';
-import { locale as i18nLocale, type Locale } from '@/i18n';
+import { coreLocale as i18nLocale, type CoreLocale as Locale } from '@/i18n';
 
 // Closed tone enum — const array export (family KANBAN_TONES pattern).
 export const CHART_TONES = ['default', 'primary', 'success', 'warning', 'destructive'] as const;
@@ -257,27 +257,19 @@ const TEXTS: Record<Locale, ChartTexts> = {
     partialNotice: '{label} incomplete', emptyLabel: 'No data',
     filterRemovedLabel: 'Filter removed', donutNegativeNotice: 'negative values — shown as list',
   },
-  cs: {
-    countLabel: 'Počet', otherLabel: 'Ostatní', missingLabel: 'Neuvedeno',
-    noValueNotice: '{n} bez hodnoty', cappedNotice: '{shown} z {total} kategorií',
-    mentionsLabel: '{n} zmínek', coarsenedNotice: 'seskupeno za {unit}',
-    partialNotice: '{label} neúplné', emptyLabel: 'Žádná data',
-    filterRemovedLabel: 'Filtr zrušen', donutNegativeNotice: 'záporné hodnoty — jako seznam',
-  },
 };
 const UNIT: Record<Locale, Record<'day' | 'week' | 'month', string>> = {
   de: { day: 'Tag', week: 'Woche', month: 'Monat' },
   en: { day: 'day', week: 'week', month: 'month' },
-  cs: { day: 'den', week: 'týden', month: 'měsíc' },
 };
-const YESNO: Record<Locale, [string, string]> = { de: ['Ja', 'Nein'], en: ['Yes', 'No'], cs: ['Ano', 'Ne'] };
+const YESNO: Record<Locale, [string, string]> = { de: ['Ja', 'Nein'], en: ['Yes', 'No'] };
 // „pro Tag" / „per day" / „za den" — Präposition der Takt-Notiz.
-const PER: Record<Locale, string> = { de: 'pro', en: 'per', cs: 'za' };
+const PER: Record<Locale, string> = { de: 'pro', en: 'per' };
 // Kalenderwochen-Präfix der Zeitachse.
-const WEEK_PREFIX: Record<Locale, string> = { de: 'KW', en: 'W', cs: 'T.' };
+const WEEK_PREFIX: Record<Locale, string> = { de: 'KW', en: 'W' };
 // BCP-47-Tag je Locale (das Widget formatiert gegen seine locale-PROP).
-const TAG: Record<Locale, string> = { de: 'de-DE', en: 'en-US', cs: 'cs-CZ' };
-const DFNS: Record<Locale, typeof dfnsDe | undefined> = { de: dfnsDe, en: undefined, cs: dfnsCs };
+const TAG: Record<Locale, string> = { de: 'de-DE', en: 'en-US' };
+const DFNS: Record<Locale, typeof dfnsDe | undefined> = { de: dfnsDe, en: undefined };
 const tpl = (s: string, vars: Record<string, string | number>) =>
   s.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
 
@@ -903,7 +895,6 @@ export function ChartSkeleton() {
 const ERROR_TEXTS: Record<Locale, { title: string; retry: string }> = {
   de: { title: 'Auswertung konnte nicht geladen werden', retry: 'Erneut versuchen' },
   en: { title: 'Chart failed to load', retry: 'Try again' },
-  cs: { title: 'Vyhodnocení se nepodařilo načíst', retry: 'Zkusit znovu' },
 };
 
 type ChartErrorProps = {

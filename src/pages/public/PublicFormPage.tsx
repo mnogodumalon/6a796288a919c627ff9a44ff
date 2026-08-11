@@ -9,7 +9,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { DatePicker } from '@/components/DatePicker';
 import { AddressAutocomplete } from '@/components/AddressAutocomplete';
-import { t } from '@/i18n';
+// Feldlabels/Options folgen der Besucher-Browsersprache über das Bundle;
+// das Config-Label bleibt der Fallback (Alt-Seiten, fremde Apps).
+import { t, fieldLabelByAppId, lookupLabelByAppId } from '@/i18n';
 import {
   loadPublicPagesConfig,
   prepareChallenge,
@@ -49,13 +51,14 @@ interface RefOption {
 
 interface FieldInputProps {
   field: PublicFieldConfig;
+  appId: string;
   value: unknown;
   onChange: (value: unknown) => void;
   refOptions?: RefOption[];
   refLoading?: boolean;
 }
 
-function FieldInput({ field, value, onChange, refOptions, refLoading }: FieldInputProps) {
+function FieldInput({ field, appId, value, onChange, refOptions, refLoading }: FieldInputProps) {
   const ft = field.fulltype;
   const options = field.options ?? [];
 
@@ -137,7 +140,7 @@ function FieldInput({ field, value, onChange, refOptions, refLoading }: FieldInp
     return (
       <div className="flex items-center gap-2 pt-1">
         <Checkbox id={field.key} checked={!!value} onCheckedChange={v => onChange(!!v)} />
-        <Label htmlFor={field.key} className="font-normal">{field.label}</Label>
+        <Label htmlFor={field.key} className="font-normal">{fieldLabelByAppId(appId, field.key) ?? field.label}</Label>
       </div>
     );
   }
@@ -174,7 +177,7 @@ function FieldInput({ field, value, onChange, refOptions, refLoading }: FieldInp
                     : 'bg-background text-foreground border-input hover:bg-accent'
                 }`}
               >
-                {opt.label}
+                {lookupLabelByAppId(appId, field.key, opt.key) ?? opt.label}
               </button>
             );
           })}
@@ -190,7 +193,7 @@ function FieldInput({ field, value, onChange, refOptions, refLoading }: FieldInp
         <SelectContent>
           <SelectItem value="none">—</SelectItem>
           {options.map(opt => (
-            <SelectItem key={opt.key} value={opt.key}>{opt.label}</SelectItem>
+            <SelectItem key={opt.key} value={opt.key}>{lookupLabelByAppId(appId, field.key, opt.key) ?? opt.label}</SelectItem>
           ))}
         </SelectContent>
       </Select>
@@ -211,7 +214,7 @@ function FieldInput({ field, value, onChange, refOptions, refLoading }: FieldInp
                 onChange(next.length ? next : undefined);
               }}
             />
-            <Label htmlFor={`${field.key}_${opt.key}`} className="font-normal">{opt.label}</Label>
+            <Label htmlFor={`${field.key}_${opt.key}`} className="font-normal">{lookupLabelByAppId(appId, field.key, opt.key) ?? opt.label}</Label>
           </div>
         ))}
       </div>
@@ -430,12 +433,13 @@ export default function PublicFormPage() {
           <div key={field.key} className="space-y-2" onFocusCapture={handleFirstInteraction}>
             {field.fulltype !== 'bool' ? (
               <Label htmlFor={field.key}>
-                {field.label}
+                {fieldLabelByAppId(page.app_id, field.key) ?? field.label}
                 {field.required ? ' *' : ''}
               </Label>
             ) : null}
             <FieldInput
               field={field}
+              appId={page.app_id}
               value={values[field.key]}
               onChange={v => setField(field.key, v)}
               refOptions={refOptions[field.key]}

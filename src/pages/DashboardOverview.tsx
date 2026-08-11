@@ -70,7 +70,8 @@ const tt = makeT({ /* i18n-exempt */
     empty_app_btn: 'Erstes Werkzeug aufnehmen', /* i18n-exempt */
     overdue: 'überfällig', /* i18n-exempt */
     zurueck: '✓ Zurück', /* i18n-exempt */
-    abschliessen: '✓ Abschließen', /* i18n-exempt */
+    abschliessen: '✓ Abschließen',
+    bis: '· bis', /* i18n-exempt */
   },
   en: { /* i18n-exempt */
     page_title: 'Tool Management', /* i18n-exempt */
@@ -101,7 +102,8 @@ const tt = makeT({ /* i18n-exempt */
     empty_app_btn: 'Add first tool', /* i18n-exempt */
     overdue: 'overdue', /* i18n-exempt */
     zurueck: '✓ Return', /* i18n-exempt */
-    abschliessen: '✓ Complete', /* i18n-exempt */
+    abschliessen: '✓ Complete',
+    bis: '· to', /* i18n-exempt */
   },
   cs: { /* i18n-exempt */
     page_title: 'Správa nástrojů', /* i18n-exempt */
@@ -132,7 +134,8 @@ const tt = makeT({ /* i18n-exempt */
     empty_app_btn: 'Přidat první nástroj', /* i18n-exempt */
     overdue: 'po termínu', /* i18n-exempt */
     zurueck: '✓ Vrátit', /* i18n-exempt */
-    abschliessen: '✓ Dokončit', /* i18n-exempt */
+    abschliessen: '✓ Dokončit',
+    bis: '· to', /* i18n-exempt */
   },
 }); /* i18n-exempt */
 
@@ -449,7 +452,7 @@ export default function DashboardOverview() {
                   <>
                     <span className="font-medium text-foreground">{a.handwerkerName}</span>
                     {a.fields.geplantes_rueckgabedatum && (
-                      <span className="text-muted-foreground"> · bis {formatDateTime(a.fields.geplantes_rueckgabedatum)}</span>
+                      <span className="text-muted-foreground"> {tt('bis')} {formatDateTime(a.fields.geplantes_rueckgabedatum)}</span>
                     )}
                     {ueberfaelligeAusleihen.some(u => u.record_id === a.record_id) && (
                       <span className="ml-1 font-medium text-destructive">{tt('overdue')}</span>
@@ -479,7 +482,7 @@ export default function DashboardOverview() {
                       <span className="text-muted-foreground"> · {w.verantwortlicherName}</span>
                     )}
                     {w.fields.geplantes_enddatum && (
-                      <span className="text-muted-foreground"> · bis {formatDate(w.fields.geplantes_enddatum)}</span>
+                      <span className="text-muted-foreground"> {tt('bis')} {formatDate(w.fields.geplantes_enddatum)}</span>
                     )}
                   </>
                 ),

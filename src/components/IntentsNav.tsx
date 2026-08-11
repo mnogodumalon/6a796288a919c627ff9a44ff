@@ -55,7 +55,7 @@ export function IntentsNav() {
         // render as-is (pre-i18n dashboards).
         title: typeof intent.label === 'string'
           ? intent.label
-          : intent.label[locale] ?? intent.label.de ?? intent.label.en ?? intent.label.cs ?? '',
+          : (intent.label as Record<string, string | undefined>)[locale] ?? intent.label.de ?? intent.label.en ?? intent.label.cs ?? '',
         url: `#${intent.path}`,
         here: location.pathname === intent.path,
         meta: { path: intent.path },

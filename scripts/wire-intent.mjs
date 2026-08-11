@@ -140,8 +140,8 @@ if (!entriesBlock) fail(`${REGISTRY}: marker '// <custom:intents>' not found —
 if (entriesBlock[1].includes(`path: '/intents/${slug}'`)) {
   same.push(`${REGISTRY}: entry /intents/${slug} already present`);
 } else {
-  // Label: preferred is a JSON object with all three UI languages
-  // ('{"de":"Neue Buchung","en":"New booking","cs":"Nová rezervace"}');
+  // Label: preferred is a JSON object with both UI languages
+  // ('{"de":"Neue Buchung","en":"New booking"}');
   // a plain string stays valid and renders unchanged in every language.
   let labelLiteral = `'${esc(label)}'`;
   if (label.trim().startsWith('{')) {
