@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Personaldaten, Kontakt, Abteilung, Qualifikation). Kein Number-Feld, kein Datumspaar, kein Applookup mit Preisen. Status: aktiv als Standard-Default gesetzt. Nichts berechenbar."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Geräteverwaltung mit Klassifizierung, Hersteller/Modell, Standort, Zustand. Ein einzelnes Anschaffungsdatum ohne Zweit-Datum und ohne Preis-Multiplikator. Zustand: verfügbar als Standard. Nichts berechenbar."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": [],
+      "reason": "Ausleih-Verwaltung mit Datumspaar (ausleihdatum/geplanes_rueckgabedatum) und Rückgabe-Tracking. Zwei applookups auf Stammdaten (werkzeug, handwerker). Kein Number-Feld für Kosten, daher keine Dauer-/Kosten-Berechnung. Defaults: heute + 3 Tage Standard, Status: ausgeliehen."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "geplantes_enddatum", "status_wartung", "vorgangsart"],
+      "computed_keys": [],
+      "reason": "Wartungs- und Reparatur-Tracking mit Datumstripel (start, geplantes Ende, tatsächliches Ende), vorgangsart-Unterscheidung und statische Kosten. Ein Applookup auf Werkzeuge, optional auf Handwerker. Kosten sind statisch eingegeben (kein Lookup-Preis × Dauer-Produkt), daher keine Berechnung. Defaults: heute, +7 Tage, Status geplant, Vorgangsart Wartung."
+    }
+  }
+}
