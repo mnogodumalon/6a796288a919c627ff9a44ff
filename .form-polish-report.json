@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten-Entity ohne Berechnungen. Status=aktiv als sinnvoller Default. Keine number-Felder, keine Preis-/Menge-/Dauer-Achse möglich."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand"],
+      "computed_keys": [],
+      "reason": "Inventar-Stammdaten ohne Transaktionen. Zustand=verfügbar als Anfangsstatus. Kein Produkt/Aggregat ohne numerische Felder."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Transaktions-Entity mit zwei datetimeminute-Feldern (Ausleihdatum + Rückgabedatum) als Paar. Pflicht-Dauer-Berechnung (dateDiff) für virtuelle Dauer-Kennzahl in Stunden. Status=ausgeliehen als Anfang. Withtime=true kritisch für datetimeminute-Defaults."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "status_wartung", "vorgangsart"],
+      "computed_keys": ["_geplante_dauer_tage"],
+      "reason": "Wartungs-/Reparaturvorgänge mit Datumpaar (startdatum + geplantes_enddatum). Pflicht-Dauer-Berechnung für geplante Arbeitsdauer in Tagen. Kosten sind reine Eingabe ohne Berechnung. Status=geplant, Vorgangsart=wartung als Anfangswerte."
+    }
+  }
+}
