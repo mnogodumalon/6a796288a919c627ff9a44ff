@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Max",
+    "nachname": "z. B. Müller",
+    "personalnummer": "z. B. MW-2026-042",
+    "telefon": "z. B. +49 30 12345678",
+    "email": "z. B. max.mueller@example.com",
+    "abteilung": "z. B. Elektroinstallation",
+    "qualifikation": "Wähle eine Qualifikation",
+    "status": "Aktiv oder Inaktiv",
+    "bemerkungen": "Besonderheiten, Einsatzgebiet, Weiterbildungen..."
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Bohrmaschine ProDrill 500",
+    "inventarnummer": "z. B. INV-ELK-0042",
+    "kategorie": "Wähle eine Kategorie",
+    "hersteller": "z. B. Bosch",
+    "modell": "z. B. GSB 24 PRO",
+    "seriennummer": "z. B. SN-2024-001234",
+    "anschaffungsdatum": "Wann wurde es angeschafft?",
+    "standort": "z. B. Lager Halle A, Regal 3",
+    "zustand": "Verfügbar, Ausgeliehen, In Reparatur...",
+    "bemerkungen_werkzeug": "Wartungshinweise, Besonderheiten, Zubehör..."
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Welches Werkzeug wird ausgeliehen?",
+    "handwerker": "Wer leiht es aus?",
+    "ausleihdatum": "Wann wird es ausgeliehen?",
+    "geplantes_rueckgabedatum": "Wann wird es zurück erwartet?",
+    "tatsaechliches_rueckgabedatum": "Wann wurde es tatsächlich zurückgegeben?",
+    "status_ausleihe": "Ausgeliehen oder Zurückgegeben",
+    "bemerkungen_ausleihe": "Zustand beim Ausleihen, Besonderheiten, Schäden..."
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug wird gewartet?",
+    "vorgangsart": "Wartung oder Reparatur",
+    "verantwortlicher": "Wer führt es durch?",
+    "startdatum": "Wann beginnt die Bearbeitung?",
+    "geplantes_enddatum": "Wann wird es fertig?",
+    "tatsaechliches_enddatum": "Wann wurde es tatsächlich fertig?",
+    "beschreibung": "Was ist das Problem oder die Maßnahme?",
+    "status_wartung": "Geplant, In Bearbeitung, Abgeschlossen, Abgebrochen",
+    "kosten": "z. B. 125,50",
+    "bemerkungen_wartung": "Ergebnis, Besonderheiten, Empfehlungen für Zukunft..."
+  }
+}

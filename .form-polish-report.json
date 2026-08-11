@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten — Personenverwaltung ohne berechenbare Felder, keine Preise, keine Datums-Paare. Einziger Default: Status=Aktiv beim Anlegen."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Inventarverwaltung ohne Preise oder Aggregationen. Ein Datum ohne Paarung. Defaults: Anschaffungsdatum=heute (logisches Erfassungsdatum), Zustand=Verfügbar (Standard bei neuer Anlage)."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_tage"],
+      "reason": "Zeitraumsegment (Ausleihdatum–Rückgabedatum). Virtuelle Dauer-Berechnung zeigt geplante Leihfrist in Tagen im Aggregat-Block. Keine Preis-applookups."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 9,
+      "defaults_keys": ["startdatum", "geplantes_enddatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Workflow mit Zeitraum (Start–geplantes Ende). Virtuelle Dauer zeigt Bearbeitungszeit in Tagen. Kosten-Feld existiert aber hat kein applookup-Target → keine Aggregation. Status-Default=Geplant beim Anlegen."
+    }
+  }
+}
