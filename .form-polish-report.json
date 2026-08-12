@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Name, Email, Qualifikation, Abteilung). Keine Numerikfelder, keine Datumpaare, keine Berechnung möglich. Status erhält Default 'Aktiv' für schnellere Dateneingabe."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Bestandsverwaltung mit Anschaffungsdatum und Zustand-Lookup. Keine Mengen/Preise, kein zweites Datumfeld, keine Berechnungen ableitbar. Defaults setzen sinnvolle Startwerte (heutiges Datum, Zustand 'Verfügbar')."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_geplante_dauer_stunden"],
+      "reason": "Ausleihe mit drei datetime-Feldern (Ausleih-, geplantes Rückgabe-, tatsächliches Rückgabedatum). Virtuelle Dauer-Berechnung zeigt Stundenumfang der geplanten Ausleihe als Übersicht. Keine Preis-Applookups vorhanden, daher nur Dauer-Formel."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "geplantes_enddatum", "status_wartung"],
+      "computed_keys": ["_wartung_geplante_dauer_tage"],
+      "reason": "Wartungs-Entity mit Datumspair (start/geplantes Ende), Kosten-Feld und Applookups auf Werkzeug + Handwerker. Kosten sind manuell eingegeben (kein Stundensatz-Lookup), daher keine Multiplikation. Virtuelle Dauer-Formel zeigt geplante Bearbeitungszeit als Übersicht an."
+    }
+  }
+}
