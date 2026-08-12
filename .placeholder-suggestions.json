@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Thomas",
+    "nachname": "z. B. Müller",
+    "personalnummer": "z. B. EW-2026-001",
+    "telefon": "z. B. +49 30 12345678",
+    "email": "z. B. thomas.mueller@firma.de",
+    "abteilung": "z. B. Elektroinstallation",
+    "qualifikation": "Wähle deine Rolle",
+    "status": "Ist diese Person aktiv?",
+    "bemerkungen": "Besonderheiten, Zertifikate, Spezialisierungen..."
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Bohrhammer DeWalt",
+    "inventarnummer": "z. B. WZ-2026-0042",
+    "kategorie": "z. B. Elektrowerkzeug",
+    "hersteller": "z. B. DeWalt",
+    "modell": "z. B. D25012K",
+    "seriennummer": "z. B. SN-987654321",
+    "anschaffungsdatum": "Wann gekauft?",
+    "standort": "z. B. Werkstatt West, Regal 3",
+    "zustand": "Wähle den aktuellen Zustand",
+    "bemerkungen_werkzeug": "Wartungshistorie, Besonderheiten..."
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Welches Werkzeug ausleihen?",
+    "handwerker": "Wer leiht es aus?",
+    "ausleihdatum": "Wann beginnt die Ausleihe?",
+    "geplanes_rueckgabedatum": "Geplanter Rückgabetermin?",
+    "tatsaechliches_rueckgabedatum": "Wann zurückgegeben?",
+    "status_ausleihe": "Ist das Werkzeug zurück?",
+    "bemerkungen_ausleihe": "Zustand bei Rückgabe, Schäden..."
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug braucht Wartung?",
+    "vorgangsart": "Wartung oder Reparatur?",
+    "verantwortlicher": "Wer kümmert sich drum?",
+    "startdatum": "Wann startet die Maßnahme?",
+    "geplantes_enddatum": "Geplantes Abschluss-Datum?",
+    "tatsaechliches_enddatum": "Wann tatsächlich fertig?",
+    "beschreibung": "Was ist das Problem? Welche Maßnahmen notwendig?",
+    "status_wartung": "In welchem Stadium bist du?",
+    "kosten": "z. B. 125,50",
+    "bemerkungen_wartung": "Ersatzteile, Besonderheiten, Lieferant..."
+  }
+}

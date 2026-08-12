@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Mitarbeiterverwaltung) — keine numerischen oder preisbezogenen Felder, keine Datumpaare. Kein applookup vorhanden, daher keine Berechnungskette möglich."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand", "anschaffungsdatum"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten für Werkzeugverwaltung — einzelnes Anschaffungsdatum ohne Paar, keine numerischen Felder, keine applookup-Ketten mit Preisen. Keine Berechnungen sinnvoll."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Klassisches Leihvorgänge-Muster mit Datumspaar (Ausleihdatum ↔ Rückgabedatum). Virtuelle Dauer-Berechnung per dateDiff in Stunden (beide Felder datetimeminute). Keine Preis-Target-Felder in applookups vorhanden → kein financieller Total."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Wartungs-/Reparatur-Vorgänge mit Datumspaar (Start ↔ tatsächliches/geplantes Ende). Virtuelle Dauer-Berechnung in Tagen per dateDiff. Kosten-Feld ist manuell — keine applookup-Multiplikation da Werkzeug/Handwerker keine numerischen Preis-Target-Felder haben."
+    }
+  }
+}
