@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten-Entity für Mitarbeiter. Keine numerischen Felder, keine Datumspaare, keine applookup-Ziele mit Preisen. Nichts berechenbar. Nur Status-Default auf 'aktiv'."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Stammdaten für Werkzeuge-Inventar. Keine numerischen Felder, keine Datumspaare für Berechnung, keine applookup-Ziele mit Preisen. Nur Anschaffungsdatum (today) und Zustand-Default (verfügbar). Nichts berechenbar."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden", "_tatsaechliche_dauer_stunden"],
+      "reason": "Verknüpfungs-Entity mit Datumspaaren (ausleihdatum/geplantes_rueckgabedatum, ausleihdatum/tatsaechliches_rueckgabedatum). Virtuelle Dauer-Felder via dateDiff für geplante und tatsächliche Ausleih-Dauer in Stunden. Keine Preis-Daten, daher keine Kosten-Computeds. Defaults: ausleihdatum=today (Erfassung), geplantes=+3Tage, status=ausgeliehen."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage", "_tatsaechliche_dauer_tage"],
+      "reason": "Wartungs-/Reparatur-Prozess-Entity mit Datumspaaren (startdatum/geplantes_enddatum, startdatum/tatsaechliches_enddatum). Virtuelle Dauer-Felder via dateDiff für geplante und tatsächliche Dauer in Tagen. Das Kosten-Feld bleibt manuell eingegeben (keine Multiplikation/Summe, keine Abhängigkeit von anderen numerischen Feldern). Defaults: startdatum=today (Erfassung), status=geplant. Feldorder behält logisches Pairing (startdatum+geplantes_enddatum nebeneinander)."
+    }
+  }
+}
