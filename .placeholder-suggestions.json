@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Hans",
+    "nachname": "z. B. Müller",
+    "personalnummer": "z. B. HW-2026-001",
+    "telefon": "z. B. 030 1234567",
+    "email": "z. B. hans.mueller@elektro.de",
+    "abteilung": "z. B. Feldservice Ost",
+    "qualifikation": "Qualifikation wählen",
+    "status": "Aktiv oder Inaktiv?",
+    "bemerkungen": "Lizenzangaben, Besonderheiten, Spezialisierungen…"
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Akkuschrauber Bosch",
+    "inventarnummer": "z. B. INV-2026-0042",
+    "kategorie": "Kategorie wählen",
+    "hersteller": "z. B. Bosch, Makita, DeWalt",
+    "modell": "z. B. GSR 12V-35 HC",
+    "seriennummer": "z. B. 12345678",
+    "anschaffungsdatum": "Wann wurde es gekauft?",
+    "standort": "z. B. Lager Nord, Schrank C3",
+    "zustand": "Verfügbarkeit wählen",
+    "bemerkungen_werkzeug": "Besonderheiten, Wartungshistorie, Zubehör…"
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Werkzeug aus Bestand wählen",
+    "handwerker": "Welcher Handwerker leiht aus?",
+    "ausleihdatum": "Wann beginnt die Ausleihe?",
+    "geplantes_rueckgabedatum": "Geplante Rückgabe?",
+    "tatsaechliches_rueckgabedatum": "Tatsächlich zurückgebracht?",
+    "status_ausleihe": "Ausgeliehen oder zurückgegeben?",
+    "bemerkungen_ausleihe": "Zustand beim Verleihen, besondere Bedingungen…"
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug betroffen?",
+    "vorgangsart": "Wartung oder Reparatur?",
+    "verantwortlicher": "Verantwortlicher Handwerker?",
+    "startdatum": "Wann wird begonnen?",
+    "geplantes_enddatum": "Wann fertig geplant?",
+    "tatsaechliches_enddatum": "Wann tatsächlich fertig?",
+    "beschreibung": "Was ist das Problem, welche Maßnahmen werden durchgeführt?",
+    "status_wartung": "Aktueller Status?",
+    "kosten": "z. B. 45,50",
+    "bemerkungen_wartung": "Ersatzteile, besondere Erkenntnisse, Folgemaßnahmen…"
+  }
+}

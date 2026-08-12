@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten einer Person (Name, Personalnummer, Kontakt, Abteilung, Qualifikation). Keine Datumsfelder, keine Numerikfelder, keine applookup-Ketten, nichts berechenbar."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten eines Werkzeugs (Name, Inventarnummer, Hersteller, Modell, Seriennummer, Anschaffungsdatum, Standort, Zustand). Ein isoliertes Datumfeld ohne Gegenstück, keine Numerikfelder, keine Berechnung möglich."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_tage"],
+      "reason": "Transaktionsdaten mit Datumspaar (Ausleihdatum ↔ Geplantes Rückgabedatum). Virtuelle Dauer-Berechnung zeigt die geplante Ausleihdauer an; keine Preis-Applookups vorhanden."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "vorgangsart", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_geplant_tage", "_wartung_dauer_tatsaechlich_tage"],
+      "reason": "Zeitliche Prozessschritte mit zwei Datumspaaren (Geplantes vs. Tatsächliches Ende). Zwei unabhängige Dauer-Berechnungen zeigen die Abweichung; Kosten ist reine Eingabe (keine Preis-Applookup-Basis für weitere Formeln)."
+    }
+  }
+}

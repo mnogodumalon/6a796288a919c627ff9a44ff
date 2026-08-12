@@ -1,0 +1,33 @@
+{
+  "pages": {
+    "en": {
+      "Abschließen": "Complete",
+      "Aktive Handwerker": "Active Tradespeople",
+      "Alle Rückgaben pünktlich — alles im Plan": "All returns on time — all on schedule",
+      "Alle Werkzeuge verfügbar — bereit zum Einsatz.": "All tools available — ready for use.",
+      "Ausgeliehen": "Checked Out",
+      "Ausleihe erfassen": "Record Checkout",
+      "Geplant": "Scheduled",
+      "Handwerker": "Tradesperson",
+      "Keine laufenden Wartungen": "No ongoing maintenance",
+      "Rückgabe buchen": "Book Return",
+      "Unbekannt": "Unknown",
+      "Verfügbar": "Available",
+      "Wartung / Reparatur": "Maintenance / Repair",
+      "Wartung abschließen": "Complete Maintenance",
+      "Wartung planen": "Schedule Maintenance",
+      "Wartungen & Reparaturen": "Maintenance & Repairs",
+      "Werkzeug": "Tool",
+      "Zurückgeben": "Return",
+      "fällig": "due",
+      "{0} Werkzeuge aktuell ausgeliehen — alles im Plan.": "{0} tools currently checked out — all on schedule.",
+      "{0} — Rückgabe überfällig!": "{0} — return overdue!",
+      "{0} — Wartung abgeschlossen": "{0} — maintenance completed",
+      "{0} — Zustand geändert": "{0} — condition changed",
+      "{0} — zurückgegeben": "{0} — returned",
+      "Überfällige Ausleihen": "Overdue Checkouts",
+      "— Rückgabe überfällig seit": "— return overdue since"
+    }
+  },
+  "v": 1
+}
