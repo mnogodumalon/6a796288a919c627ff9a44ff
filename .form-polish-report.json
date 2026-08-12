@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten. Keine numerischen Felder, keine Datumsbereiche, keine Applookups mit Preis-Targets — nichts berechenbar."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten mit optionalem Anschaffungsdatum. Ein einzelnes Datum (kein Pair), keine numerischen Berechnungen — keine computed-Formeln sinnvoll."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Leih-Entity mit Datumspaar (Ausleihdatum/geplanes_rueckgabedatum). Virtuelle Dauer-Berechnung (dateDiff in Stunden) für Übersichts-Anzeige. Kein applookup mit Preis-Target → kein Gesamtkosten-Computed."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Wartungs-Entity mit Datumspaar (Startdatum/geplanes_enddatum). Virtuelle Dauer-Berechnung (dateDiff in Tagen) für Übersichts-Anzeige. Kosten-Feld ist manuell eingegeben (kein Lookup-Anchor) → kein Gesamtkosten-Computed."
+    }
+  }
+}
