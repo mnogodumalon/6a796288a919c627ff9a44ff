@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Max",
+    "nachname": "z. B. Müller",
+    "personalnummer": "z. B. HW-2026-001",
+    "telefon": "z. B. 0123 456789",
+    "email": "max.mueller@elektro.de",
+    "abteilung": "z. B. Elektrik, Servicebereich",
+    "qualifikation": "Wähle die Qualifikation",
+    "status": "Aktiv oder Inaktiv",
+    "bemerkungen": "Besonderheiten, Spezialkompetenzen, Notizen..."
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Akkuschrauber DeWalt",
+    "inventarnummer": "z. B. EW-2026-0042",
+    "kategorie": "Messgerät, Handwerkzeug, Elektrowerkzeug...",
+    "hersteller": "z. B. Bosch, DeWalt, Makita",
+    "modell": "z. B. DCD776C2",
+    "seriennummer": "z. B. SN123456789",
+    "anschaffungsdatum": "Wann angeschafft?",
+    "standort": "z. B. Werkstatt-Schrank C, Lagerraum 2",
+    "zustand": "Verfügbar, Ausgeliehen, In Reparatur...",
+    "bemerkungen_werkzeug": "Besonderheiten, Ausstattung, Mangelm..."
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Welches Werkzeug?",
+    "handwerker": "Wer leiht aus?",
+    "ausleihdatum": "Wann ausgeliehen?",
+    "geplanes_rueckgabedatum": "Wann zurück?",
+    "tatsaechliches_rueckgabedatum": "Wann tatsächlich?",
+    "status_ausleihe": "Ausgeliehen oder Zurückgegeben",
+    "bemerkungen_ausleihe": "Zustand, Besonderheiten, Notizen..."
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug?",
+    "vorgangsart": "Wartung oder Reparatur",
+    "verantwortlicher": "Welcher Handwerker?",
+    "startdatum": "Wann startet?",
+    "geplantes_enddatum": "Wann fertig?",
+    "tatsaechliches_enddatum": "Wann erledigt?",
+    "beschreibung": "Was ist defekt oder zu warten? Durchgeführte Maßnahmen...",
+    "status_wartung": "Geplant, In Bearbeitung, Abgeschlossen...",
+    "kosten": "z. B. 45,50 (in €)",
+    "bemerkungen_wartung": "Besonderheiten, Ersatzteile, Notizen..."
+  }
+}

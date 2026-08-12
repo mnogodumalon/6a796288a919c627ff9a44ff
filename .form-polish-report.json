@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten, keine berechenbaren Felder (keine Preise, keine Applookup-Ketten, keine Dateispaare mit Multiplikation)"
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand"],
+      "computed_keys": [],
+      "reason": "Stammdaten mit Inventarverwaltung, keine numerischen Berechnungen nötig (kein Preis, kein applookup-Target mit Preisfeld)"
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Transaktions-Entity mit Datumspaar (Ausleihdatum ↔ geplantes_rückgabedatum). Virtuelle Dauer als Stunden-Differenz für UI-Übersicht. Keine Preismultiplikation (applookup-Targets haben keine Preis-Felder)."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Wartungs-/Reparatur-Prozess mit Datumspaar (Start ↔ geplantes_enddatum). Virtuelle Dauer als Tage-Differenz für Übersicht. Kosten manuell eingegeben (nicht applookup-berechnet). Keine Multi-Lookup-Summe."
+    }
+  }
+}
