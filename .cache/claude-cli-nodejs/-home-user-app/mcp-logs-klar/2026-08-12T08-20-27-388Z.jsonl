@@ -1,0 +1,11 @@
+{"debug":"Calling MCP tool: build_intent_pages","timestamp":"2026-08-12T08:21:06.327Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"error":"No flows given — pass one entry per intent page.","timestamp":"2026-08-12T08:21:06.338Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Tool 'build_intent_pages' failed after 0s: No flows given — pass one entry per intent page.","timestamp":"2026-08-12T08:21:06.339Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Calling MCP tool: build_intent_pages","timestamp":"2026-08-12T08:21:26.599Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"error":"No flows given — pass one entry per intent page.","timestamp":"2026-08-12T08:21:26.610Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Tool 'build_intent_pages' failed after 0s: No flows given — pass one entry per intent page.","timestamp":"2026-08-12T08:21:26.610Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Calling MCP tool: build_intent_pages","timestamp":"2026-08-12T08:21:49.901Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Tool 'build_intent_pages' still running (30s elapsed)","timestamp":"2026-08-12T08:22:19.902Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Tool 'build_intent_pages' still running (60s elapsed)","timestamp":"2026-08-12T08:22:49.903Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Tool 'build_intent_pages' still running (90s elapsed)","timestamp":"2026-08-12T08:23:19.904Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
+{"debug":"Tool 'build_intent_pages' completed successfully in 1m 41s","timestamp":"2026-08-12T08:23:31.656Z","sessionId":"8fb42373-4a2a-4190-b86c-06d4e6af5276","cwd":"/home/user/app"}
