@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Name, Kontakt, Abteilung, Qualifikation). Kein applookup mit Preis, keine Datumspaare, keine berechenbaren Größen. Status-Default auf 'aktiv' für neue Einträge gesetzt."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Name, Inventar, Hersteller, Modell, Zustand). Ein Einzeldatum (Anschaffung) ohne Folgedatum. Kein applookup mit Preis, keine berechenbaren Felder. Defaults für Anschaffungsdatum (heute) und Zustand (verfügbar) gesetzt."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Ausleih-Workflow mit Datumspaar (Ausleihdatum → Geplantes Rückgabedatum). Keine applookup mit Preis-Target, aber Ausleihdauer berechenbar (dateDiff Stunden). Virtueller Computed für Dauer-Anzeige im Aggregat-Block. Status-Default auf 'ausgeliehen', geplante Rückgabe standardmäßig +1 Tag mit Zeit."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "geplantes_enddatum", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Maintenance-Workflow mit Datumspaar (Startdatum → Geplantes Enddatum). Keine applookup mit Preis-Multiplikator (Kosten manuell). Wartungsdauer berechenbar (dateDiff Tage). Virtueller Computed für Dauer-Anzeige. Status-Default auf 'geplant', geplante Ende standardmäßig +3 Tage. Vorgangsart-Picker (Wartung/Reparatur) für Kategorisierung."
+    }
+  }
+}

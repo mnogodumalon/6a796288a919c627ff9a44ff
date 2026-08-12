@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Max",
+    "nachname": "z. B. Müller",
+    "personalnummer": "z. B. PNR-001",
+    "telefon": "Telefonnummer eingeben",
+    "email": "max.mueller@firma.de",
+    "abteilung": "z. B. Elektroinstallation",
+    "qualifikation": "Welche Qualifikation?",
+    "status": "Aktiv oder Inaktiv?",
+    "bemerkungen": "Besonderheiten, Erfahrungen, Anmerkungen..."
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Multimeter DT-890",
+    "inventarnummer": "z. B. INV-2025-001",
+    "kategorie": "Welche Kategorie?",
+    "hersteller": "z. B. Fluke",
+    "modell": "z. B. 87V",
+    "seriennummer": "z. B. SN123456",
+    "anschaffungsdatum": "Wann angeschafft?",
+    "standort": "z. B. Werkstatt Ost",
+    "zustand": "Welcher Zustand?",
+    "bemerkungen_werkzeug": "Wartungshistorie, Reparaturen..."
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Welches Werkzeug ausleihen?",
+    "handwerker": "An welchen Handwerker?",
+    "ausleihdatum": "Wann ausleihen?",
+    "geplantes_rueckgabedatum": "Wann zurück?",
+    "tatsaechliches_rueckgabedatum": "Tatsächliche Rückgabe?",
+    "status_ausleihe": "Ausgeliehen oder zurückgegeben?",
+    "bemerkungen_ausleihe": "Zustand, Besonderheiten..."
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug?",
+    "vorgangsart": "Wartung oder Reparatur?",
+    "verantwortlicher": "Zuständiger Handwerker?",
+    "startdatum": "Wann starten?",
+    "geplantes_enddatum": "Geplantes Ende?",
+    "tatsaechliches_enddatum": "Tatsächliches Ende?",
+    "beschreibung": "Problem, Symptome, durchgeführte Maßnahmen...",
+    "status_wartung": "Welcher Status?",
+    "kosten": "z. B. 45,50",
+    "bemerkungen_wartung": "Weitere Informationen, Ersatzteile..."
+  }
+}
