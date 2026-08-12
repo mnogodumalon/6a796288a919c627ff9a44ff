@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten-Entity. Keine Preisfelder, keine Datumsbereiche, keine Lookup-Chains. Status-Lookup mit Aktivitäts-Semantik hat Default 'aktiv'. Keine berechenbaren Beziehungen."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand"],
+      "computed_keys": [],
+      "reason": "Lagerverwaltungs-Stammdaten. Zustand-Lookup (Verfügbar bis Ausgemustert) mit Default 'verfuegbar'. Keine Preisfelder, keine Berechnung sinnvoll. Inventarverwaltung rein deskriptiv."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": [],
+      "reason": "Transaktions-Entity mit Datumspaar (Ausleihe/Rückgabe). Zwei applookups auf Stammdaten ohne Preis-Targets. Keine Mengen-, Kosten- oder Berechnung-Felder. Ausleihdatum=today (withTime), geplantes Rückgabe=+3 Tage, Status=ausgeliehen. Keine computed-Formeln nötig."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "status_wartung"],
+      "computed_keys": [],
+      "reason": "Auftragsähnliche Entity mit Werkzeug/Verantwortlicher (applookups auf Stammdaten ohne Preis), Datumsspanne (Start/geplant/tatsächlich), Kosten als manuelles Eingabefeld. Keine applookups auf Preis-Ziele (Stundensätze/Materialpreise nicht im Form). Kosten bleibt manual, Status hat Default 'geplant'. Keine Berechnung möglich — Kosten sind konkrete Auftragskosten, nicht abgeleitet."
+    }
+  }
+}

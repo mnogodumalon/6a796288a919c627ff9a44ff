@@ -1,0 +1,40 @@
+{
+  "pages": {
+    "en": {
+      "Aktive Wartungen & Reparaturen": "Active Maintenance & Repairs",
+      "Ausgeliehen": "On Loan",
+      "Ausleihe": "Loan",
+      "Ausleihe erfassen": "Record loan",
+      "Ausleihen — heute fällig & überfällig": "Loans — due today & overdue",
+      "Handwerker": "Craftsman",
+      "Handwerker aktiv": "Active craftsmen",
+      "Handwerker anlegen": "Add craftsman",
+      "Heute fällig": "Due today",
+      "Keine aktiven Wartungen oder Reparaturen": "No active maintenance or repairs",
+      "Keine offenen Ausleihen — alles pünktlich zurückgegeben": "No open loans — everything returned on time",
+      "Rückgabe erfassen": "Record return",
+      "Unbekannt": "Unknown",
+      "Verfügbar": "Available",
+      "Wartung / Reparatur": "Maintenance / Repair",
+      "Wartung abschließen": "Complete maintenance",
+      "Wartung/Reparatur anlegen": "Create maintenance/repair",
+      "Werkzeug": "Tool",
+      "Werkzeug aufnehmen": "Add tool",
+      "bei {0}": "with {0}",
+      "geplante Rückgabe": "scheduled return",
+      "kein Verantwortlicher": "no responsible person",
+      "{0} Werkzeuge verfügbar — alles im grünen Bereich": "{0} tools available — all in the green",
+      "{0} heute zurückgeben": "Return {0} today",
+      "{0} in Wartung oder Reparatur": "{0} in maintenance or repair",
+      "{0} überfällig — sofort zurückfordern": "{0} overdue — reclaim immediately",
+      "{0} — Status geändert": "{0} — status changed",
+      "{0} — Wartung abgeschlossen": "{0} — maintenance completed",
+      "{0} — zurückgegeben": "{0} — returned",
+      "Überfällig": "Overdue",
+      "überfällig": "overdue",
+      "↩ Zurück": "↩ Back",
+      "✓ Abschließen": "✓ Complete"
+    }
+  },
+  "v": 1
+}
