@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Max",
+    "nachname": "z. B. Müller",
+    "telefon": "z. B. +49 30 12345678",
+    "personalnummer": "z. B. HW-001",
+    "email": "max.mueller@example.com",
+    "abteilung": "z. B. Außendienst",
+    "qualifikation": "Berufliche Qualifikation wählen",
+    "status": "Aktiv zum Arbeiten?",
+    "bemerkungen": "Spezialausbildungen, Zertifikate, Einsatzgebiete..."
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Bohrmaschine Metabo",
+    "inventarnummer": "z. B. INV-2026-0042",
+    "kategorie": "Kategorie des Werkzeugs wählen",
+    "hersteller": "z. B. Bosch, Makita, Hilti",
+    "modell": "z. B. GSB 21-2 RE",
+    "seriennummer": "z. B. 123456789",
+    "anschaffungsdatum": "Wann wurde es gekauft?",
+    "standort": "z. B. Werkstatt Lager A2",
+    "zustand": "Verfügbar, Ausgeliehen, Defekt?",
+    "bemerkungen_werkzeug": "Ausstattung, Besonderheiten, Wartungshinweise..."
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Welches Werkzeug wird ausgeliehen?",
+    "handwerker": "Wer leiht sich das Werkzeug aus?",
+    "ausleihdatum": "Wann wird es abgeholt?",
+    "geplanes_rueckgabedatum": "Wann soll es zurück sein?",
+    "tatsaechliches_rueckgabedatum": "Wann wurde es tatsächlich zurückgegeben?",
+    "status_ausleihe": "Derzeit ausgeliehen oder zurückgegeben?",
+    "bemerkungen_ausleihe": "Zustand beim Abholen, Besonderheiten, Schäden..."
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug muss gepflegt werden?",
+    "vorgangsart": "Ist es Wartung oder Reparatur?",
+    "verantwortlicher": "Wer kümmert sich darum?",
+    "startdatum": "Wann beginnt die Maßnahme?",
+    "geplantes_enddatum": "Wann soll es fertig sein?",
+    "tatsaechliches_enddatum": "Wann ist es tatsächlich fertig geworden?",
+    "beschreibung": "Was ist das Problem? Was wird gemacht? Ersatzteile, Diagnose, Durchführung...",
+    "status_wartung": "Geplant, In Bearbeitung, Abgeschlossen?",
+    "kosten": "z. B. 89,50",
+    "bemerkungen_wartung": "Zusätzliche Beobachtungen, Folgearbeiten, Lieferkette..."
+  }
+}

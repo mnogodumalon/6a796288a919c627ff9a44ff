@@ -1,0 +1,39 @@
+{
+  "pages": {
+    "en": {
+      "Abschließen": "Complete",
+      "Aktive Ausleihen": "Active loans",
+      "Aktive Handwerker": "Active craftsmen",
+      "Alle Werkzeuge verfügbar — guter Tag!": "All tools available — great day!",
+      "Ausgeliehen": "Borrowed",
+      "Ausgeliehen an {0}": "Borrowed by {0}",
+      "Ausleihe erfassen": "Record loan",
+      "Bearbeiten": "Edit",
+      "Erstes Werkzeug aufnehmen": "Add first tool",
+      "Fällig": "Due",
+      "In Wartung/Reparatur": "In maintenance/repair",
+      "Keine aktiven Ausleihen — alle Werkzeuge im Lager": "No active loans — all tools in storage",
+      "Keine offenen Wartungen — alle Werkzeuge in Ordnung": "No open maintenance — all tools in order",
+      "Noch keine Werkzeuge vorhanden.": "No tools available yet.",
+      "Offene Wartungen & Reparaturen": "Open maintenance & repairs",
+      "Rückgabe buchen": "Book return",
+      "Unbekannt": "Unknown",
+      "Unbekanntes Werkzeug": "Unknown tool",
+      "Verfügbar": "Available",
+      "Wartung abschließen": "Complete maintenance",
+      "Wartung erfassen": "Record maintenance",
+      "Werkzeug hinzufügen": "Add tool",
+      "Werkzeug zurückgeben": "Return tool",
+      "Zurückgeben": "Return",
+      "ausgeliehen an": "borrowed by",
+      "bis": "until",
+      "{0} aktuell ausgeliehen": "{0} currently borrowed",
+      "{0} — Wartung abgeschlossen": "{0} — maintenance completed",
+      "{0} — zurückgegeben": "{0} — returned",
+      "{0} — überfällige Rückgabe": "{0} — overdue return",
+      "Überfällig": "Overdue",
+      "— Rückgabe überfällig seit": "— return overdue since"
+    }
+  },
+  "v": 1
+}

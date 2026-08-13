@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten-Entity. Kein berechenbarer Zusammenhang zwischen Feldern. Status-Lookup mit sinnvollem Default 'aktiv'."
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["anschaffungsdatum", "zustand"],
+      "computed_keys": [],
+      "reason": "Inventar-Stammdaten ohne Berechnung. Anschaffungsdatum mit today-Default, Zustand standardmäßig 'verfuegbar'. Keine numerischen oder applookup-Verkettungen."
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplanes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": [],
+      "reason": "Zeitgesteuerte Entity mit zwei Datum-Feldern (Ausleihe + Rückgabe) und applookups (Werkzeug, Handwerker). Keine Preise, keine Anzahl-Produkte zu berechnen. Status mit Default 'ausgeliehen', beide Daten mit withTime:true (datetimeminute)."
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "status_wartung"],
+      "computed_keys": [],
+      "reason": "Service/Maintenance-Entity mit Datum-Paar (start, geplantes Ende, tatsächliches Ende) und Kostenfeld. Kosten sind Einzelfall-Entscheidung ohne berechenbares Muster (keine Pauschale, keine Mengen-Staffel, kein applookup-Produktpreis). Status mit Default 'geplant', Startdatum mit today."
+    }
+  }
+}
