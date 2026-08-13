@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Handwerker": {
+      "placeholders_set": 9,
+      "defaults_keys": ["status"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten (Name, Kontakt, Qualifikation, Status). Keine berechenbaren Felder oder Multiplizierungen — nichts außer dem Default-Status (= aktiv)"
+    },
+    "Werkzeuge": {
+      "placeholders_set": 10,
+      "defaults_keys": ["zustand"],
+      "computed_keys": [],
+      "reason": "Reine Inventar-Stammdaten (Name, Modell, Hersteller, Datum, Zustand, Standort). Kein Number-Feld für Kosten/Preis vorhanden, keine Multiplizierungen — nur Default-Zustand (= verfügbar)"
+    },
+    "Ausleihe": {
+      "placeholders_set": 7,
+      "defaults_keys": ["ausleihdatum", "geplantes_rueckgabedatum", "status_ausleihe"],
+      "computed_keys": ["_ausleihe_dauer_stunden"],
+      "reason": "Ausleihe-Vorgänge mit Datumpaar (ausleihdatum ↔ geplantes_rückgabedatum). Virtuelle Dauer-Berechnung in Stunden via dateDiff (Heuristik a.2 — kein echtes Dauer-Feld in Originalschema). Status-Default = ausgeliehen"
+    },
+    "Wartung & Reparatur": {
+      "placeholders_set": 10,
+      "defaults_keys": ["startdatum", "vorgangsart", "status_wartung"],
+      "computed_keys": ["_wartung_dauer_tage"],
+      "reason": "Wartungs-/Reparaturvorgänge mit Datumpaar (startdatum ↔ geplantes_enddatum). Virtuelle Dauer-Berechnung in Tagen (Heuristik a.2). Kosten ist manuelles Feld (kein Multiplikator). Status-Defaults: vorgangsart = Wartung, status_wartung = Geplant"
+    }
+  }
+}

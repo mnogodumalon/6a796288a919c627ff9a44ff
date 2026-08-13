@@ -1,0 +1,46 @@
+{
+  "HandwerkerDialog.tsx": {
+    "vorname": "z. B. Max",
+    "nachname": "z. B. Müller",
+    "personalnummer": "z. B. HW-001",
+    "telefon": "z. B. 0123 456789",
+    "email": "max.mueller@example.com",
+    "abteilung": "z. B. Elektroinstallation",
+    "qualifikation": "Wähle Qualifikation",
+    "status": "Status aktiv/inaktiv",
+    "bemerkungen": "Spezialkompetenzen, Besonderheiten..."
+  },
+  "WerkzeugeDialog.tsx": {
+    "werkzeugname": "z. B. Bohrmaschine 500W",
+    "inventarnummer": "z. B. WZ-20250815-001",
+    "kategorie": "Wähle Kategorie",
+    "hersteller": "z. B. Bosch",
+    "modell": "z. B. PSB 500 RE",
+    "seriennummer": "z. B. SN-123456",
+    "anschaffungsdatum": "Wann wurde gekauft?",
+    "standort": "z. B. Lager Nord, Regal 3",
+    "zustand": "Wähle Zustand",
+    "bemerkungen_werkzeug": "Ausstattung, Besonderheiten..."
+  },
+  "AusleiheDialog.tsx": {
+    "werkzeug": "Welches Werkzeug?",
+    "handwerker": "Welcher Handwerker?",
+    "ausleihdatum": "Wann wird ausgeliehen?",
+    "geplantes_rueckgabedatum": "Wann zurück geplant?",
+    "tatsaechliches_rueckgabedatum": "Wann tatsächlich zurück?",
+    "status_ausleihe": "Ausgeliehen/Zurückgegeben",
+    "bemerkungen_ausleihe": "Zustand, Besonderheiten..."
+  },
+  "WartungReparaturDialog.tsx": {
+    "werkzeug_wartung": "Welches Werkzeug?",
+    "vorgangsart": "Wartung oder Reparatur?",
+    "verantwortlicher": "Bearbeiter wählen",
+    "startdatum": "Wann beginnt?",
+    "geplantes_enddatum": "Wann endet geplant?",
+    "tatsaechliches_enddatum": "Wann tatsächlich erledigt?",
+    "beschreibung": "Problem, Lösung, durchgeführte Arbeiten...",
+    "status_wartung": "Status der Bearbeitung",
+    "kosten": "z. B. 45,50",
+    "bemerkungen_wartung": "Ersatzteile, Besonderheiten..."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "pages": {
+    "en": {
+      "Abschließen": "Complete",
+      "Ausgeliehen": "Checked Out",
+      "Ausleihe": "Loan",
+      "Ausleihe erfassen": "Record Loan",
+      "Defekt": "Defective",
+      "Dieses Werkzeug wirklich löschen?": "Really delete this tool?",
+      "Heute {0} Ausleihe(n). {1} Werkzeuge verfügbar.": "Today {0} loan(s). {1} tools available.",
+      "Inv.-Nr.": "Inv. No.",
+      "Keine laufenden Wartungen oder Reparaturen.": "No ongoing maintenance or repairs.",
+      "Keine überfälligen Ausleihen — alles pünktlich zurückgegeben.": "No overdue loans — everything returned on time.",
+      "Laufende Wartungen": "Ongoing Maintenance",
+      "Laufende Wartungen & Reparaturen": "Ongoing Maintenance & Repairs",
+      "Unbekanntes Werkzeug": "Unknown Tool",
+      "Verfügbar": "Available",
+      "Wartung / Reparatur": "Maintenance / Repair",
+      "Wartung abschließen": "Complete Maintenance",
+      "Wartung anlegen": "Create Maintenance",
+      "Werkzeug": "Tool",
+      "Werkzeug löschen": "Delete Tool",
+      "Werkzeug zurückgeben": "Return Tool",
+      "Zurückgabe": "Return",
+      "Zurückgabe erfassen": "Record Return",
+      "fällig": "due",
+      "{0} Werkzeuge verfügbar, {1} Handwerker aktiv.": "{0} tools available, {1} craftsmen active.",
+      "{0} überfällig — Rückgabe ausstehend.": "{0} overdue — return pending.",
+      "{0} — abgeschlossen": "{0} — completed",
+      "{0} — zurückgegeben": "{0} — returned",
+      "{0} — {1}": "({0} — {1}",
+      "Überfällige Ausleihen": "Overdue Loans",
+      "überfällig — Rückgabe noch ausstehend.": "overdue — return still pending."
+    }
+  },
+  "v": 1
+}
